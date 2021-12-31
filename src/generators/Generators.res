@@ -41,7 +41,10 @@ let mod: array<Generator.generatorDef> = [
   DalekModDalekGenerator.generator,
 ]
 
-let other: array<Generator.generatorDef> = [AmongUsBendableGenerator.generator]
+let other: array<Generator.generatorDef> = [
+  MinecraftLifeSizeHeadGenerator.generator,
+  AmongUsBendableGenerator.generator,
+]
 
 let dev: array<Generator.generatorDef> = isDevEnvironment
   ? [MinecraftWitherGenerator.generator]

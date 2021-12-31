@@ -82,6 +82,20 @@ module Page = {
       context: context,
     }
   }
+
+  let makeLifeSize = (id: string) => {
+    let canvas = Document.createCanvasElement(Document.document)
+    Canvas.setWidth(canvas, PageSize.LifeSize.px.width)
+    Canvas.setHeight(canvas, PageSize.LifeSize.px.height)
+    let context = Canvas.getContext2d(canvas)
+    {
+      id: id,
+      width: Canvas.getWidth(canvas),
+      height: Canvas.getHeight(canvas),
+      canvas: canvas,
+      context: context,
+    }
+  }
 }
 
 module Texture = {
@@ -550,6 +564,22 @@ let usePage = (model: Model.t, id) => {
   | Some(_) => model
   | None => {
       let page = Page.make(id)
+      let pages = Js.Array2.concat(model.pages, [page])
+      {
+        ...model,
+        pages: pages,
+        currentPage: Some(page),
+      }
+    }
+  }
+}
+
+let usePageLifeSize = (model: Model.t, id) => {
+  let page = findPage(model, id)
+  switch page {
+  | Some(_) => model
+  | None => {
+      let page = Page.makeLifeSize(id)
       let pages = Js.Array2.concat(model.pages, [page])
       {
         ...model,

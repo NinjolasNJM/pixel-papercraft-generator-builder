@@ -134,6 +134,10 @@ let usePage = id => {
   model := Builder.usePage(model.contents, id)
 }
 
+let usePageLifeSize = id => {
+  model := Builder.usePageLifeSize(model.contents, id)
+}
+
 let drawTexture = (
   id: string,
   source: Builder.rectangle,
