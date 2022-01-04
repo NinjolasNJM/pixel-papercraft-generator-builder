@@ -1,7 +1,7 @@
 type doc
 type imageType = [#JPEG | #PNG]
 type orientation = [#portrait | #landscape]
-type format = [#a4]
+type format = [#a4 | #a0]
 type unit_ = [#mm]
 
 type makeOptions = {

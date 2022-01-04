@@ -34,12 +34,33 @@ let script = () => {
   )
 
   // Define user variables
-  Generator.defineBooleanInput("Show Helmet", true)
+  Generator.defineSelectInput("Helmet", ["Attached", "Separate", "None"])
   Generator.defineBooleanInput("Show Titles", true)
 
   // Get user variable values
-  let showHelmet = Generator.getBooleanInputValue("Show Helmet")
+  let helmetStyle = Generator.getSelectInputValue("Helmet")
   let showTitles = Generator.getBooleanInputValue("Show Titles")
+
+  let showHelmet = helmetStyle !== "None"
+
+  let m = 55
+  let w = 880
+
+  // Draw Helmet
+  let drawHelmet = () => {
+    Generator.drawTexture("Skin", (32, 8, 8, 8), (m, m, w, w), ()) // Right
+    Generator.drawTexture("Skin", (40, 8, 8, 8), (m * 2 + w, m, w, w), ()) // Front
+    Generator.drawTexture("Skin", (48, 8, 8, 8), (m * 3 + w * 2, m, w, w), ()) // Left
+    Generator.drawTexture("Skin", (56, 8, 8, 8), (m, m * 2 + w, w, w), ()) // Back
+    Generator.drawTexture("Skin", (40, 0, 8, 8), (m * 2 + w, m * 2 + w, w, w), ()) // Top
+    Generator.drawTexture(
+      "Skin",
+      (48, 0, 8, 8),
+      (m * 3 + w * 2, m * 2 + w, w, w),
+      ~flip=#Vertical,
+      (),
+    ) // Bottom
+  }
 
   // Use Life Size Page
   Generator.usePageLifeSize("Head")
@@ -48,9 +69,6 @@ let script = () => {
   Generator.drawImage("Background", (0, 0))
 
   // Head
-
-  let m = 110
-  let w = 880
 
   Generator.drawTexture("Skin", (0, 8, 8, 8), (m, m, w, w), ()) // Right
   Generator.drawTexture("Skin", (8, 8, 8, 8), (m * 2 + w, m, w, w), ()) // Front
@@ -68,18 +86,15 @@ let script = () => {
   //Helmet
 
   if showHelmet {
-    Generator.drawTexture("Skin", (32, 8, 8, 8), (m, m, w, w), ()) // Right
-    Generator.drawTexture("Skin", (40, 8, 8, 8), (m * 2 + w, m, w, w), ()) // Front
-    Generator.drawTexture("Skin", (48, 8, 8, 8), (m * 3 + w * 2, m, w, w), ()) // Left
-    Generator.drawTexture("Skin", (56, 8, 8, 8), (m, m * 2 + w, w, w), ()) // Back
-    Generator.drawTexture("Skin", (40, 0, 8, 8), (m * 2 + w, m * 2 + w, w, w), ()) // Top
-    Generator.drawTexture(
-      "Skin",
-      (48, 0, 8, 8),
-      (m * 3 + w * 2, m * 2 + w, w, w),
-      ~flip=#Vertical,
-      (),
-    ) // Bottom
+    if helmetStyle === "Separate" {
+      // Titles
+      if showTitles {
+        Generator.drawImage("Titles", (0, 0))
+      }
+      Generator.usePageLifeSize("Helmet")
+      Generator.drawImage("Background", (0, 0))
+    }
+    drawHelmet()
   }
 
   // Titles

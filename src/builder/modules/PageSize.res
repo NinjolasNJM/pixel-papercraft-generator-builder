@@ -6,6 +6,6 @@ module A4 = {
 }
 
 module LifeSize = {
-  let px = {width: 3080, height: 2090}
-  let mm = {width: 1087, height: 737}
+  let px = {width: 2860, height: 1925}
+  let mm = {width: 1009, height: 679}
 }

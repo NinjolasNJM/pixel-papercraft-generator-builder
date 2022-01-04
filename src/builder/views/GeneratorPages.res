@@ -47,9 +47,9 @@ module RegionInputs = {
     }
   }
 }
-
 module SaveAsPDFButton = {
   @react.component
+  
   let make = (
     ~size: Buttons.buttonSize,
     ~color: Buttons.buttonColor,
