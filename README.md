@@ -1,4 +1,20 @@
-# Pixel Papercraft Generator Builder
+# Pixel Papercraft Generator Builder - Hidden Generators Museum
+
+A collection of generators of Pixel Papercraft past that are not included on the current generators page, and probably won't be for one reason or another.
+
+## Planned Generators
+
+Eventually, I want this site to include:
+
+- Frownie's Action Figure Generator ✅
+- Toothpick Bendable Character Generator ✅
+- Toothpick Bendable Mini Character Generator
+- Old Horse Generator
+- Old Block Generator
+- Old Life Size Head Generator
+- The Mini Block Generator that I found once a long time ago, but I can't seem to find again
+
+If there are any other old generators that you would like to be able to use again, contact NinjolasNJM on Discord and/or submit an issue on this repo and I'll see what I can do.
 
 ## Getting started
 
