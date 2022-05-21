@@ -3,14 +3,15 @@
 let isDevEnvironment: bool = process["env"]["NODE_ENV"] == "development"
 
 let character: array<Generator.generatorDef> = [
-  MinecraftCharacterGenerator.generator,
+  //MinecraftCharacterGenerator.generator,
   MinecraftActionFigureGenerator.generator,
   MinecraftToothpickBendableGenerator.generator,
-  MinecraftCharacterMiniGenerator.generator,
+  //MinecraftCharacterMiniGenerator.generator,
 ]
 
-let mobCharacter: array<Generator.generatorDef> = [
-  MinecraftCreeperCharacterGenerator.generator,
+let mobCharacter: array<
+  Generator.generatorDef,
+> = [/* MinecraftCreeperCharacterGenerator.generator,
   MinecraftCatCharacterGenerator.generator,
   MinecraftCowCharacterGenerator.generator,
   MinecraftEndermanCharacterGenerator.generator,
@@ -19,40 +20,39 @@ let mobCharacter: array<Generator.generatorDef> = [
   MinecraftSquidCharacterGenerator.generator,
   MinecraftVillagerCharacterGenerator.generator,
   MinecraftWolfCharacterGenerator.generator,
-  MinecraftAxolotlCharacterGenerator.generator,
-]
+  MinecraftAxolotlCharacterGenerator.generator, */]
 
-let mob: array<Generator.generatorDef> = [
-  MinecraftCreeperGenerator.generator,
+let mob: array<
+  Generator.generatorDef,
+> = [/* MinecraftCreeperGenerator.generator,
   MinecraftEndermanGenerator.generator,
   MinecraftGolemGenerator.generator,
   MinecraftHorseGenerator.generator,
   MinecraftPigGenerator.generator,
-  MinecraftCatGenerator.generator,
-]
+  MinecraftCatGenerator.generator, */]
 
 // Blocks, Items and Accessories
-let utility: array<Generator.generatorDef> = [
-  MinecraftBlockGenerator.generator,
+let utility: array<
+  Generator.generatorDef,
+> = [/* MinecraftBlockGenerator.generator,
   MinecraftItemGenerator.generator,
   MinecraftCapeAndElytraGenerator.generator,
-  MinecraftCharacterHeadsGenerator.generator,
-]
+  MinecraftCharacterHeadsGenerator.generator, */]
 
-let mod: array<Generator.generatorDef> = [
-  MinecraftMutantCharacterGenerator.generator,
-  DalekModDalekGenerator.generator,
-]
+let mod: array<Generator.generatorDef> = [/* MinecraftMutantCharacterGenerator.generator,
+ DalekModDalekGenerator.generator, */]
 
-let other: array<Generator.generatorDef> = [AmogusBendableGenerator.generator]
+let other: array<Generator.generatorDef> = [/* AmogusBendableGenerator.generator */]
 
 // Incomplete and in development
 let dev: array<Generator.generatorDef> = isDevEnvironment
-  ? [MinecraftWitherGenerator.generator]
+  ? [/* MinecraftWitherGenerator.generator */]
   : []
 
 let test: array<Generator.generatorDef> = isDevEnvironment
-  ? [ExampleGenerator.generator, TestingGenerator.generator]
+  ? [/* ExampleGenerator.generator, TestingGenerator.generator */]
   : []
 
-let all = Belt.Array.concatMany([character, mobCharacter, mob, utility, mod, other, dev, test])
+let comingSoon: array<Generator.generatorDef> = isDevEnvironment ? [] : []
+
+let all = Belt.Array.concatMany([character, comingSoon]) // mobCharacter, mob, utility, mod, other, dev, test])

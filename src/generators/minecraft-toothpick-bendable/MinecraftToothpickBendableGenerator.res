@@ -14,7 +14,7 @@ let history = [
 ]
 
 let thumbnail: Generator.thumnbnailDef = {
-  url: Generator.requireImage("./thumbnail/thumbnail-256.jpeg"),
+  url: Generator.requireImage("./thumbnail/thumbnail-256.jpg"),
 }
 
 let video: Generator.videoDef = {url: "https://www.youtube.com/embed/f6y82gAIKf4?rel=0"}
