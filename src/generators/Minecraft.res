@@ -513,6 +513,33 @@ module Character = {
   }
 }
 
+module Horse = {
+  type t = {
+    head: Cuboid.Source.t,
+    mouth: Cuboid.Source.t,
+    neck: Cuboid.Source.t,
+    mane: Cuboid.Source.t,
+    tail: Cuboid.Source.t,
+    horseEar: Cuboid.Source.t,
+    muleEar: Cuboid.Source.t,
+    body: Cuboid.Source.t,
+    leg: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+  let horse: t = {
+    head: make((6, 5, 7))->translate((0, 13)),
+    mouth: make((4, 5, 5))->translate((0, 25)),
+    neck: make((4, 12, 7))->translate((0, 35)),
+    mane: make((2, 16, 2))->translate((56, 36)),
+    tail: make((3, 14, 4))->translate((42, 36)),
+    horseEar: make((2, 2, 1))->translate((19, 16)),
+    muleEar: make((2, 7, 1))->translate((0, 12)),
+    body: make((10, 10, 22))->translate((0, 32)),
+    leg: make((4, 11, 4))->translate((48, 21)),
+  }
+}
+
 let setTabSize = (tabSize: int) => {
   Generator.setIntegerVariable("tabSize", tabSize)
 }
