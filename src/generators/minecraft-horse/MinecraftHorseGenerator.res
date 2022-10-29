@@ -11,7 +11,14 @@ let thumbnail: Generator.thumnbnailDef = {
   url: Generator.requireImage("./thumbnail/v3-thumbnail-256.jpeg"),
 }
 
-let imageIds = ["Foreground-Horse", "Foreground-Mule", "Folds-Horse", "Folds-Mule", "Labels"]
+let imageIds = [
+  "Action Figure/Foreground-Horse-Action-Figure",
+  "Foreground-Horse",
+  "Foreground-Mule",
+  "Folds-Horse",
+  "Folds-Mule",
+  "Labels",
+]
 let toImageDef = (id): Generator.imageDef => {id: id, url: requireImage(id)}
 let images: array<Generator.imageDef> = imageIds->Js.Array2.map(toImageDef)
 
@@ -181,11 +188,13 @@ let script = () => {
   Generator.defineBooleanInput("Show Folds", true)
   Generator.defineBooleanInput("Show Labels", true)
   Generator.defineBooleanInput("Donkey / Mule Model", false)
+  Generator.defineBooleanInput("Action Figure", false)
 
   // Get user variable values
   let showFolds = Generator.getBooleanInputValue("Show Folds")
   let showLabels = Generator.getBooleanInputValue("Show Labels")
   let muleModel = Generator.getBooleanInputValue("Donkey / Mule Model")
+  let actionFigure = Generator.getBooleanInputValue("Action Figure")
 
   let horse = Minecraft.Horse.horse
 
@@ -270,17 +279,17 @@ let script = () => {
     }
 
     // Front Left Leg
-    let (ox, oy) = (413, 40)
+    let (ox, oy) = (413, 58)
 
     drawLeg(ox, oy, true)
 
     // Front Right Leg
-    let oy = 238
+    let oy = 250
 
     drawLeg(ox, oy, false)
 
     // Back Left Leg
-    let oy = 436
+    let oy = 442
 
     drawLeg(ox, oy, true)
 
@@ -290,13 +299,26 @@ let script = () => {
     drawLeg(ox, oy, false)
   }
 
+  // For clarity while testing. This may end up being combined into the original, if the changes are minute enough
+  let drawActionFigure = (texture: string) => {
+    drawHorse(texture)
+  }
+
   // Draw Horse
-  drawHorse("Horse")
-  drawHorse("Markings")
-  drawHorse("Armor")
+  if !actionFigure {
+    drawHorse("Horse")
+    drawHorse("Markings")
+    drawHorse("Armor")
+  } else {
+    drawActionFigure("Horse")
+    drawActionFigure("Markings")
+    drawActionFigure("Armor")
+  }
 
   // Foreground
-  if muleModel {
+  if actionFigure {
+    Generator.drawImage("Action Figure/Foreground-Horse-Action-Figure", (0, 0))
+  } else if muleModel {
     Generator.drawImage("Foreground-Mule", (0, 0))
   } else {
     Generator.drawImage("Foreground-Horse", (0, 0))
