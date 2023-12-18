@@ -2,12 +2,16 @@
 
 let isDevEnvironment: bool = process["env"]["NODE_ENV"] == "development"
 
-let tryitout: array<Generator.generatorDef> = [MinecraftArmorGenerator.generator]
+let tryitout: array<Generator.generatorDef> = [
+  MinecraftArmorGenerator.generator,
+  MinecraftModularBendableGenerator.generator,
+]
 
 /* let character: array<Generator.generatorDef> = [
   MinecraftCharacterGenerator.generator,
   MinecraftActionFigureGenerator.generator,
   MinecraftUltimateBendableGenerator.generator,
+  MinecraftModularBendableGenerator.generator,
   MinecraftCharacterMiniGenerator.generator,
 ]
 
