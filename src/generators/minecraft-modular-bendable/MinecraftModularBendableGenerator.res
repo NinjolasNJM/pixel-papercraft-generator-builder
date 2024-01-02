@@ -45,6 +45,9 @@ let textures: array<Generator.textureDef> = [
   },
 ]
 
+let steve = Minecraft.Character.steve
+let alex = Minecraft.Character.alex
+
 let script = () => {
   // Define user inputs
   Generator.defineTextureInput("Skin", {standardWidth: 64, standardHeight: 64, choices: []})
@@ -57,17 +60,24 @@ let script = () => {
   //Generator.defineBooleanInput("Show Labels", true)
 
   // Get user variable values
-  let alexModel = Generator.getSelectInputValue("Skin Model Type") === "Alex"
+  let isAlexModel = Generator.getSelectInputValue("Skin Model Type") === "Alex"
   //let showOverlay = Generator.getBooleanInputValue("Show Overlay")
   let showFolds = Generator.getBooleanInputValue("Show Folds")
   //let showLabels = Generator.getBooleanInputValue("Show Labels")
+  let char = isAlexModel ? alex : steve
 
-  /* let hideHelmet = Generator.getBooleanInputValue("Hide Helmet")
-  let hideJacket = Generator.getBooleanInputValue("Hide Jacket")
-  let hideLeftSleeve = Generator.getBooleanInputValue("Hide Left Sleeve")
-  let hideRightSleeve = Generator.getBooleanInputValue("Hide Right Sleeve")
-  let hideLeftPant = Generator.getBooleanInputValue("Hide Left Pant")
-  let hideRightPant = Generator.getBooleanInputValue("Hide Right Pant")
+  let showHeadOverlay = Generator.getBooleanInputValueWithDefault("Show Head Overlay", true)
+  let showBodyOverlay = Generator.getBooleanInputValueWithDefault("Show Body Overlay", true)
+  let showLeftArmOverlay = Generator.getBooleanInputValueWithDefault("Show Left Arm Overlay", true)
+  let showRightArmOverlay = Generator.getBooleanInputValueWithDefault(
+    "Show Right Arm Overlay",
+    true,
+  )
+  let showLeftLegOverlay = Generator.getBooleanInputValueWithDefault("Show Left Leg Overlay", true)
+  let showRightLegOverlay = Generator.getBooleanInputValueWithDefault(
+    "Show Right Leg Overlay",
+    true,
+  ) /*
 
   //Define regions
   Generator.defineRegionInput((10, 534, 192, 256), () => {
@@ -89,29 +99,119 @@ let script = () => {
     Generator.setBooleanInputValue("Hide Right Pant", !hideRightPant)
   }) */
 
-  // Page 1
-  Generator.usePage("Page 1")
-  Generator.drawImage("Guide-1", (0, 0))
-  Generator.drawImage("Foreground-1", (0, 0))
-  if showFolds {
-    Generator.drawImage("Folds-1", (0, 0))
+  let drawHead = ((ox, oy): Generator_Builder.position) => {
+    let scale = (64, 64, 64)
+    Minecraft.drawCuboid("Skin", char.base.head, (ox, oy), scale, ~orientation=#South, ())
+    if showHeadOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.head, (ox, oy), scale, ())
+    }
   }
+
+  let drawBody = ((ox, oy): Generator_Builder.position) => {
+    let scale = (64, 96, 32)
+    Minecraft.drawCuboid("Skin", char.base.body, (ox, oy), scale, ())
+    if showBodyOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.body, (ox, oy), scale, ())
+    }
+  }
+
+  let drawBody2 = ((ox, oy): Generator_Builder.position) => {
+    let scale = (64, 96, 32)
+    Minecraft.drawCuboid("Skin", char.base.body, (ox, oy), scale, ~center=#Bottom, ())
+    if showBodyOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.body, (ox, oy), scale, ())
+    }
+  }
+
+  let drawRightArm = ((ox, oy): Generator_Builder.position) => {
+    let scale = char == alex ? (24, 96, 32) : (32, 96, 32)
+    Minecraft.drawCuboid("Skin", char.base.rightArm, (ox, oy), scale, ())
+    if showRightArmOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.rightArm, (ox, oy), scale, ())
+    }
+  }
+  let drawLeftArm = ((ox, oy): Generator_Builder.position) => {
+    let scale = char == alex ? (24, 96, 32) : (32, 96, 32)
+    Minecraft.drawCuboid("Skin", char.base.leftArm, (ox, oy), scale, ~orientation=#East, ())
+    if showLeftArmOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.leftArm, (ox, oy), scale, ~orientation=#East, ())
+    }
+  }
+  let drawRightLeg = ((ox, oy): Generator_Builder.position) => {
+    let scale = (32, 96, 32)
+    Minecraft.drawCuboid(
+      "Skin",
+      char.base.rightLeg,
+      (ox, oy),
+      scale,
+      ~center=#Left,
+      ~orientation=#East,
+      (),
+    )
+    if showRightLegOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.rightLeg, (ox, oy), scale, ())
+    }
+  }
+  let drawLeftLeg = ((ox, oy): Generator_Builder.position) => {
+    let scale = (32, 96, 32)
+    Minecraft.drawCuboid("Skin", char.base.leftLeg, (ox, oy), scale, ~center=#Right, ())
+    if showLeftLegOverlay {
+      Minecraft.drawCuboid("Skin", char.overlay.leftLeg, (ox, oy), scale, ~orientation=#East, ())
+    }
+  }
+
+  // draw Pages
+  let drawPage1 = {
+    Generator.usePage("Page 1")
+    Generator.drawImage("Guide-1", (0, 0))
+    drawHead((156, 28)) // Head
+    drawBody((188, 316)) // Body
+    Generator.drawTexture("Skin", (16, 20, 4, 4), (116, 348, 32, 32), ()) // Right Square
+    Generator.drawTexture("Skin", (28, 20, 4, 4), (404, 324, 32, 32), ()) // Left Square
+    Generator.drawTexture("Skin", (53, 21, 2, 2), (26, 490, 18, 18), ()) // Right Back Circle
+    Generator.drawTexture("Skin", (45, 53, 2, 2), (66, 490, 18, 18), ()) // Left Back Circle
+    Generator.drawTexture("Skin", (44, 20, 4, 4), (424, 458, 32, 32), ()) // Right Front Circle
+    Generator.drawTexture("Skin", (36, 52, 4, 4), (66, 490, 32, 32), ()) // Left Front Circle
+    //Generator.drawImage("Foreground-1", (0, 0))
+    if showFolds {
+      Generator.drawImage("Folds-1", (0, 0))
+    }
+  }
+  let drawPage2 = {
+    Generator.usePage("Page 2")
+    Generator.drawImage("Guide-2", (0, 0))
+    let (ox, oy) = (36, 484)
+    drawRightLeg((ox, oy))
+    let (ox, oy) = (172, 484)
+    drawLeftLeg((ox, oy))
+    Generator.drawImage("Foreground-2", (0, 0))
+    if showFolds {
+      Generator.drawImage("Folds-2", (0, 0))
+    }
+  }
+  let drawPage3 = {
+    Generator.usePage("Page 3")
+    Generator.drawImage("Guide-3", (0, 0))
+    let (ox, oy) = (28, 148)
+    drawRightArm((ox, oy))
+    //Generator.drawImage("Foreground-3", (0, 0))
+    if showFolds {
+      Generator.drawImage("Folds-3", (0, 0))
+    }
+  }
+
+  // Page 1
+
+  drawPage1
 
   // Page 2
-  Generator.usePage("Page 2")
-  Generator.drawImage("Guide-2", (0, 0))
-  Generator.drawImage("Foreground-2", (0, 0))
-  if showFolds {
-    Generator.drawImage("Folds-2", (0, 0))
-  }
+
+  drawPage2
 
   // Page 3
-  Generator.usePage("Page 3")
-  Generator.drawImage("Guide-3", (0, 0))
-  Generator.drawImage("Foreground-3", (0, 0))
-  if showFolds {
-    Generator.drawImage("Folds-3", (0, 0))
-  }
+
+  drawPage3
+
   /* Labels
   if showLabels {
     Generator.drawImage("Labels", (0, 0))
