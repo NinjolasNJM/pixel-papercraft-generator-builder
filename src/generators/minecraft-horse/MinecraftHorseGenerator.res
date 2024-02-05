@@ -188,7 +188,7 @@ let script = () => {
   Generator.defineBooleanInput("Show Folds", true)
   Generator.defineBooleanInput("Show Labels", true)
   Generator.defineBooleanInput("Donkey / Mule Model", false)
-  Generator.defineBooleanInput("Action Figure", false)
+  Generator.defineBooleanInput("Action Figure", true)
 
   // Get user variable values
   let showFolds = Generator.getBooleanInputValue("Show Folds")
@@ -198,7 +198,7 @@ let script = () => {
 
   let horse = Minecraft.Horse.horse
 
-  let drawHorse = (texture: string) => {
+  let drawHorse = (texture: string, actionFigure: bool) => {
     // Head
     let (ox, oy) = (20, 20)
     let scale = (48, 40, 56)
@@ -267,53 +267,75 @@ let script = () => {
     let scale = (80, 80, 176)
 
     Minecraft.drawCuboid(texture, horse.body, (ox, oy), scale, ~center=#Top, ())
+    if actionFigure {
+      Generator.drawTexture(texture, (48, 25, 4, 4), (ox - 32, oy + 80, 32, 32), ~rotate=90.0, ()) // Back Right
+      Generator.drawTexture(texture, (48, 25, 4, 4), (ox - 32, oy + 224, 32, 32), ~rotate=90.0, ()) // Front Right
+      Generator.drawTexture(texture, (56, 25, 4, 4), (ox + 240, oy + 80, 32, 32), ~rotate=270.0, ()) // Back Left
+      Generator.drawTexture(
+        texture,
+        (56, 25, 4, 4),
+        (ox + 240, oy + 224, 32, 32),
+        ~rotate=270.0,
+        (),
+      ) // Front Left
+    }
 
     // Legs
-    let drawLeg = (ox: int, oy: int, leftSide: bool) => {
+    let drawLeg = (ox: int, oy: int, leftSide: bool, actionFigure: bool) => {
       let scale = (32, 88, 32)
       if !leftSide {
         Minecraft.drawCuboid(texture, horse.leg, (ox, oy), scale, ())
+        if actionFigure {
+          Generator.drawTexture(
+            texture,
+            (60, 25, 4, 4),
+            (ox + 32, oy - 50, 32, 32),
+            ~rotate=180.0,
+            (),
+          )
+          Generator.drawTexture(texture, horse.leg.top, (ox + 32, oy - 18, 32, 50), ())
+        }
       } else {
         Minecraft.drawCuboid(texture, horse.leg, (ox, oy), scale, ~orientation=#East, ())
+        if actionFigure {
+          Generator.drawTexture(
+            texture,
+            (60, 25, 4, 4),
+            (ox + 64, oy - 50, 32, 32),
+            ~rotate=180.0,
+            (),
+          )
+          Generator.drawTexture(texture, horse.leg.top, (ox + 64, oy - 18, 32, 50), ())
+        }
       }
     }
 
     // Front Left Leg
     let (ox, oy) = (413, 58)
 
-    drawLeg(ox, oy, true)
+    drawLeg(ox, oy, true, actionFigure)
 
     // Front Right Leg
     let oy = 250
 
-    drawLeg(ox, oy, false)
+    drawLeg(ox, oy, false, actionFigure)
 
     // Back Left Leg
     let oy = 442
 
-    drawLeg(ox, oy, true)
+    drawLeg(ox, oy, true, actionFigure)
 
     // Back Right Leg
     let oy = 634
 
-    drawLeg(ox, oy, false)
-  }
-
-  // For clarity while testing. This may end up being combined into the original, if the changes are minute enough
-  let drawActionFigure = (texture: string) => {
-    drawHorse(texture)
+    drawLeg(ox, oy, false, actionFigure)
   }
 
   // Draw Horse
-  if !actionFigure {
-    drawHorse("Horse")
-    drawHorse("Markings")
-    drawHorse("Armor")
-  } else {
-    drawActionFigure("Horse")
-    drawActionFigure("Markings")
-    drawActionFigure("Armor")
-  }
+
+  drawHorse("Horse", actionFigure)
+  drawHorse("Markings", actionFigure)
+  drawHorse("Armor", actionFigure)
 
   // Foreground
   if actionFigure {
