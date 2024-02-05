@@ -47,8 +47,8 @@ module CuboidLegacy = {
     {
       x: x + xTranslate,
       y: y + yTranslate,
-      w: w,
-      h: h,
+      w,
+      h,
     }
   }
 
@@ -65,6 +65,7 @@ module CuboidLegacy = {
   }
 }
 
+// Adds a position to the position of a rectangle.
 let translateRectangle = (
   rectangle: Builder.rectangle,
   (xTranslate, yTranslate): Builder.position,
@@ -73,10 +74,12 @@ let translateRectangle = (
   (x + xTranslate, y + yTranslate, w, h)
 }
 
+// Shorthand functions for Belt.Int.toFloat() and Belt.Float.toInt()
 let toFloat = (i: int) => Belt.Int.toFloat(i)
 let round = (f: float) => Js.Math.round(f)
 let toInt = (f: float) => Belt.Float.toInt(round(f))
 
+// Adds two angles together, respecting 0.0 degrees as the max angle
 let addAngle = (r1: float, r2: float): float => mod_float(r1 +. r2 +. 360.0, 360.0)
 
 type scale = (int, int, int)
@@ -116,49 +119,65 @@ module Cuboid = {
       rectangle: Builder.rectangle,
       flip: Generator_Texture.flip,
       rotate: float,
+      blend: Generator_Texture.blend,
     }
 
     let make = (rect: Builder.rectangle): t => {
       rectangle: rect,
       flip: #None,
       rotate: 0.0,
+      blend: #None,
     }
 
-    let rotateOnAxis = ({rectangle, flip, rotate}: t, axis: (float, float), r: float) => {
-      let rad = r *. Js.Math._PI /. 180.0
-      let (cos, sin) = (Js.Math.cos(rad), Js.Math.sin(rad))
+    // Rotates the face using a point as an axis to rotate around. This is necessary because the faces of the cuboid need to rotate around the center of the cuboid and not their own centers.
+    let rotateOnAxis = ({rectangle, flip, rotate, blend}: t, axis: (float, float), r: float) => {
+      let rad = r *. Js.Math._PI /. 180.0 // degrees to radians
+      let (cos, sin) = (Js.Math.cos(rad), Js.Math.sin(rad)) // components of the unit vector
       let (x, y, w, h) = rectangle
       let (x0, y0) = axis
-      let (x1, y1) = (toFloat(x) -. x0, toFloat(y) -. y0)
-      let (x2, y2) = (x1 *. cos -. y1 *. sin, x1 *. sin +. y1 *. cos)
-      let (x3, y3) = (toInt(x2 +. x0), toInt(y2 +. y0))
+      let (x1, y1) = (toFloat(x) -. x0, toFloat(y) -. y0) // move rectangle so the corner is on the axis
+      let (x2, y2) = (x1 *. cos -. y1 *. sin, x1 *. sin +. y1 *. cos) // offset in relation to the angle
+      let (x3, y3) = (toInt(x2 +. x0), toInt(y2 +. y0)) // move rectangle away from the axis
 
       {
         rectangle: (x3, y3, w, h),
-        flip: flip,
+        flip,
         rotate: addAngle(rotate, r),
+        blend,
       }
     }
 
-    let rotate = ({rectangle, flip, rotate}: t, r: float) => {
+    //add rotate values
+    let rotate = ({rectangle, flip, rotate, blend}: t, r: float) => {
+      let r = flip == #None ? addAngle(r, rotate) : addAngle(r *. -1.0, rotate)
+      {
+        rectangle,
+        flip,
+        rotate: r,
+        blend,
+      }
+    }
+
+    // rotate in relation to its own center. Uses rotateOnAxis with the axis as the face's center.
+    let rotateFace = ({rectangle, flip, rotate, blend}: t) => {
       let (x, y, w, h) = rectangle
-      let r = addAngle(r, 0.0)
 
       let f =
-        rotate +. r >= 360.0
+        rotate >= 360.0
           ? rotateOnAxis(
-              {rectangle: rectangle, flip: flip, rotate: rotate},
+              {rectangle, flip, rotate: 0.0, blend},
               (toFloat(x) -. toFloat(w) /. 2.0, toFloat(y) -. toFloat(h) /. 2.0),
-              r,
+              rotate,
             )
           : rotateOnAxis(
-              {rectangle: rectangle, flip: flip, rotate: rotate},
+              {rectangle, flip, rotate: 0.0, blend},
               (toFloat(x) +. toFloat(w) /. 2.0, toFloat(y) +. toFloat(h) /. 2.0),
-              r,
+              rotate,
             )
-      let {rectangle, flip, rotate} = f
-      let (x, y, w, h) = rectangle
+      let {rectangle, flip, rotate, blend} = f
 
+      let (x, y, w, h) = rectangle
+      // If the face is rotated 90 or 270 degrees, then the height and width values will need to be swapped, and the corner moved to its correct position.
       {
         rectangle: switch addAngle(rotate, 0.0) {
         | 90.0 => (
@@ -175,8 +194,9 @@ module Cuboid = {
           )
         | _ => (x, y, w, h)
         },
-        flip: flip,
-        rotate: rotate,
+        flip,
+        rotate,
+        blend,
       }
     }
 
@@ -198,17 +218,28 @@ module Cuboid = {
           rectangle: face.rectangle,
           flip: newFlip,
           rotate: face.rotate,
+          blend: face.blend,
         },
         newRotate,
       )
     }
 
-    let translate = ({rectangle, flip, rotate}: t, position: Builder.position) => {
+    // Translate a face.
+    let translate = ({rectangle, flip, rotate, blend}: t, position: Builder.position) => {
       rectangle: rectangle->translateRectangle(position),
-      flip: flip,
-      rotate: rotate,
+      flip,
+      rotate,
+      blend,
     }
 
+    let blend = ({rectangle, flip, rotate, _}: t, newBlend: Generator_Texture.blend) => {
+      rectangle,
+      flip,
+      rotate,
+      blend: newBlend,
+    }
+
+    // Draw the texture of the face
     let draw = (textureId: string, source: Builder.rectangle, dest: t) => {
       Generator.drawTexture(
         textureId,
@@ -216,11 +247,12 @@ module Cuboid = {
         dest.rectangle,
         ~flip=dest.flip,
         ~rotateLegacy=dest.rotate,
+        ~blend=dest.blend,
         (),
       )
     }
   }
-
+  // module with the six faces of a cuboid, as the destination- the final position and orientation that the faces will be drawn as
   module Dest = {
     type t = {
       front: Face.t,
@@ -235,6 +267,7 @@ module Cuboid = {
 
     type center = [#Right | #Front | #Left | #Back | #Top | #Bottom]
 
+    // translate the destination.
     let translate = (dest: t, position: Builder.position) => {
       front: Face.translate(dest.front, position),
       back: Face.translate(dest.back, position),
@@ -244,6 +277,7 @@ module Cuboid = {
       left: Face.translate(dest.left, position),
     }
 
+    // Make the destination set given the orientation of the sixth edge.
     let make = ((w, h, d): scale, orientation: orientation): t => {
       switch orientation {
       | #West => {
@@ -281,6 +315,7 @@ module Cuboid = {
       }
     }
 
+    // Gets the center of the center face.
     let getAxis = ((w, h, d): scale, orientation: orientation): (float, float) => {
       switch orientation {
       | #East => (toFloat(d) +. toFloat(w) *. 1.5, toFloat(d) +. toFloat(h) /. 2.0)
@@ -289,6 +324,7 @@ module Cuboid = {
       }
     }
 
+    // Rotate the entire cuboid destination on an axis.
     let rotate = (dest: t, axis: (float, float), rotate: float): t => {
       {
         right: dest.right->Face.rotateOnAxis(axis, rotate),
@@ -300,7 +336,19 @@ module Cuboid = {
       }
     }
 
-    let setLayout = (scale, orientation, center, r): t => {
+    /*
+    Redefine w, h, and d depending on center
+    Make depending on scale and orientation
+    Move faces so that the center is at the center
+    Get axis- center of the center face
+    Rotate faces around the axis
+    Blend faces
+    Translate destination to where it will be drawn
+    draw faces
+ */
+
+    let setLayout = (scale, orientation, center, flip, r, blend): t => {
+      // Depending of the center face of the cuboid, the width, height and depth as found in scale will have to change.
       let (w, h, d) = scale
       let scale = switch center {
       | #Right => (d, h, w)
@@ -309,16 +357,58 @@ module Cuboid = {
       | #Bottom => (w, d, h)
       | _ => (w, h, d)
       }
+      // Depending on the flip direction of the cuboid, the orientation will need to change.
+      let orientation = switch (flip, orientation) {
+      | (#Horizontal, #West) => #East
+      | (#Horizontal, #East) => #West
+      | (#Vertical, #South) => #North
+      | (#Vertical, #North) => #South
+      | _ => orientation
+      }
 
-      let dest = make(scale, orientation)
+      let dest = make(scale, orientation) // Create destination with default layout
+      /*
+    Flip:
+    Add flip each face in the given direction
+    Change layout (by default, make horizontal make a west facing cuboid face east):
+    If horizontal, switch the right and left face, and if the orientation is east or west, make it face the other direction
+    If vertical, switch the top and bottom faces, and if the orientation is north or south, make it face the other direction
+ */
+      let dest = switch flip {
+      | #Horizontal => {
+          right: dest.left->Face.flip(#Horizontal),
+          front: dest.front->Face.flip(#Horizontal),
+          left: dest.right->Face.flip(#Horizontal),
+          back: dest.back->Face.flip(#Horizontal),
+          top: dest.top->Face.flip(#Horizontal),
+          bottom: dest.bottom->Face.flip(#Horizontal),
+        }
+      | #Vertical => {
+          right: dest.right->Face.flip(#Vertical),
+          front: dest.front->Face.flip(#Vertical),
+          left: dest.left->Face.flip(#Vertical),
+          back: dest.back->Face.flip(#Vertical),
+          top: dest.bottom->Face.flip(#Vertical),
+          bottom: dest.top->Face.flip(#Vertical),
+        }
+      | #None => {
+          right: dest.right,
+          front: dest.front,
+          left: dest.left,
+          back: dest.back,
+          top: dest.top,
+          bottom: dest.bottom,
+        }
+      }
+      // Place faces in proper places depending on the center face.
       let dest = switch center {
       | #Right => {
           right: dest.front,
           front: dest.left,
           left: dest.back,
           back: dest.right,
-          top: dest.top->Face.rotate(-90.0),
-          bottom: dest.bottom->Face.flip(#Vertical)->Face.rotate(90.0),
+          top: dest.top->Face.rotate(270.0),
+          bottom: dest.bottom->Face.rotate(90.0)->Face.flip(#Vertical),
         }
       | #Front => {
           right: dest.right,
@@ -334,7 +424,7 @@ module Cuboid = {
           left: dest.front,
           back: dest.left,
           top: dest.top->Face.rotate(90.0),
-          bottom: dest.bottom->Face.flip(#Vertical)->Face.rotate(-90.0),
+          bottom: dest.bottom->Face.rotate(270.0)->Face.flip(#Vertical),
         }
       | #Back => {
           right: dest.left,
@@ -347,13 +437,13 @@ module Cuboid = {
       | #Top => {
           right: dest.right->Face.rotate(90.0),
           front: dest.bottom,
-          left: dest.left->Face.rotate(-90.0),
+          left: dest.left->Face.rotate(270.0),
           back: dest.top->Face.rotate(180.0),
           top: dest.front,
           bottom: dest.back->Face.flip(#Horizontal),
         }
       | #Bottom => {
-          right: dest.right->Face.rotate(-90.0),
+          right: dest.right->Face.rotate(270.0),
           front: dest.top,
           left: dest.left->Face.rotate(90.0),
           back: dest.bottom->Face.rotate(180.0),
@@ -361,11 +451,33 @@ module Cuboid = {
           bottom: dest.front->Face.flip(#Vertical),
         }
       }
+      //actually rotate the faces
+      let dest = {
+        right: dest.right->Face.rotateFace,
+        front: dest.front->Face.rotateFace,
+        left: dest.left->Face.rotateFace,
+        back: dest.back->Face.rotateFace,
+        top: dest.top->Face.rotateFace,
+        bottom: dest.bottom->Face.rotateFace,
+      }
+
+      // Rotate the destination by the given rotation, with the center of the center face as the axis
       let axis = getAxis(scale, orientation)
-      rotate(dest, axis, r)
+      let dest = rotate(dest, axis, r)
+
+      // Return the destination with faces blended
+      {
+        right: dest.right->Face.blend(blend),
+        front: dest.front->Face.blend(blend),
+        left: dest.left->Face.blend(blend),
+        back: dest.back->Face.blend(blend),
+        top: dest.top->Face.blend(blend),
+        bottom: dest.bottom->Face.blend(blend),
+      }
     }
   }
 
+  // Creates and translates a Destination object, then draws each of its faces.
   let draw = (
     textureId: string,
     source: Source.t,
@@ -373,10 +485,13 @@ module Cuboid = {
     scale: scale,
     ~orientation: Dest.orientation=#West,
     ~center: Dest.center=#Front,
+    ~flip: Generator_Texture.flip=#None,
     ~rotate: float=0.0,
+    ~blend: Generator_Texture.blend=#None,
     (),
   ) => {
-    let dest = Dest.setLayout(scale, orientation, center, rotate)->Dest.translate(position)
+    let dest =
+      Dest.setLayout(scale, orientation, center, flip, rotate, blend)->Dest.translate(position)
     Face.draw(textureId, source.front, dest.front)
     Face.draw(textureId, source.back, dest.back)
     Face.draw(textureId, source.top, dest.top)
@@ -393,9 +508,12 @@ let drawCuboid = (
   scale: scale,
   ~orientation: Cuboid.Dest.orientation=#West,
   ~center: Cuboid.Dest.center=#Front,
+  ~flip: Generator_Texture.flip=#None,
   ~rotate: float=0.0,
+  ~blend: Generator_Texture.blend=#None,
   (),
-) => Cuboid.draw(textureId, source, position, scale, ~orientation, ~center, ~rotate, ())
+) =>
+  Cuboid.draw(textureId, source, position, scale, ~orientation, ~center, ~flip, ~rotate, ~blend, ())
 
 module CharacterLegacy = {
   module Layer = {
@@ -537,6 +655,60 @@ module Horse = {
     muleEar: make((2, 7, 1))->translate((0, 12)),
     body: make((10, 10, 22))->translate((0, 32)),
     leg: make((4, 11, 4))->translate((48, 21)),
+  }
+}
+
+module Spider = {
+  type t = {
+    head: Cuboid.Source.t,
+    thorax: Cuboid.Source.t,
+    abdomen: Cuboid.Source.t,
+    leg: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+
+  let spider: t = {
+    head: make((8, 8, 8))->translate((32, 4)),
+    thorax: make((6, 6, 6))->translate((0, 0)),
+    abdomen: make((10, 8, 12))->translate((0, 12)),
+    leg: make((16, 2, 2))->translate((18, 0)),
+  }
+}
+
+module Phantom = {
+  type t = {
+    head: Cuboid.Source.t,
+    body: Cuboid.Source.t,
+    wing1: Cuboid.Source.t,
+    wing2: Cuboid.Source.t,
+    tail1: Cuboid.Source.t,
+    tail2: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+
+  let phantom: t = {
+    head: make((7, 3, 5))->translate((0, 0)),
+    body: make((5, 3, 9))->translate((0, 8)),
+    wing1: make((6, 2, 9))->translate((23, 12)),
+    wing2: make((13, 1, 9))->translate((16, 24)),
+    tail1: make((3, 2, 6))->translate((3, 20)),
+    tail2: make((1, 1, 6))->translate((4, 29)),
+  }
+}
+
+module Minecart = {
+  type t = {
+    bottom: Cuboid.Source.t,
+    sides: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+
+  let minecart = {
+    bottom: make((20, 16, 2))->translate((0, 10)),
+    sides: make((16, 8, 2))->translate((0, 0)),
   }
 }
 

@@ -9,6 +9,10 @@ let name = "Testing"
 
 let history = []
 
+let thumbnail: Generator.thumnbnailDef = {
+  url: "https://www.pixelpapercraft.com/images/header/logo.png",
+}
+
 let images: array<Generator.imageDef> = [
   {
     id: "Grid",
@@ -21,6 +25,10 @@ let images: array<Generator.imageDef> = [
   {
     id: "ImageColors64x64",
     url: requireImage("Colors64x64.png"),
+  },
+  {
+    id: "Tabs",
+    url: requireImage("Tabs.png"),
   },
 ]
 
@@ -79,6 +87,12 @@ let textures: array<Generator.textureDef> = [
     standardWidth: 16,
     standardHeight: 16,
   },
+  /* {
+    id: "WebTexture",
+    url: "data:image/png;base64,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",
+    standardWidth: 64,
+    standardHeight: 64,
+  }, */
 ]
 
 module Config = {
@@ -110,11 +124,48 @@ let drawGrid = () => {
   }
 }
 
+/* let drawWebTexturePage = () => {
+  Generator.usePage("Web Texture")
+  Generator.fillBackgroundColorWithWhite()
+
+  Generator.drawTexture("WebTexture", (0, 0, 16, 16), (100, 100, 164, 164), ())
+} */
+let drawTextInput = () => {
+  Generator.defineTextInput("Input")
+
+  Generator.defineText(Generator.getStringInputValue("Input"))
+}
+
+let drawTextInputPage = () => {
+  Generator.usePage("Text Input")
+  Generator.fillBackgroundColorWithWhite()
+
+  let textInput = Generator.defineAndGetSelectInput("Text Choices", ["One", "Two", "Three", "Four"])
+  Generator.drawText(textInput, (20, 40), 24)
+  Generator.drawText(Generator.getStringInputValue("Input"), (20, 70), 24)
+  Generator.drawImage(Generator.getStringInputValue("Input"), (100, 100))
+}
+
+let drawLandscapeTestPage = () => {
+  let pageFormat = Generator.defineAndGetBooleanInput("Landscape", true)
+  Generator.usePage(~isLandscape=pageFormat, "Landscape Test Page")
+  Generator.drawTexture("Steve", Minecraft.Character.steve.base.head.front, (100, 100, 64, 64), ())
+  Generator.drawTab((100, 100, 64, 64), #North, ())
+  Generator.drawTexture("GrassTop", (0, 0, 16, 16), (200, 400, 128, 128), ())
+  Minecraft.drawCuboid("Steve", Minecraft.Character.steve.base.body, (200, 400), (64, 96, 32), ())
+  Generator.drawLine((200, 400), (300, 500), ~color="#00ff00", ())
+  Generator.drawText("Hello There", (200, 400), 16)
+
+  Generator.fillBackgroundColor("#a71810")
+}
+
+// simple test for debugging that a given face is on a coordinate divisible by 2.
 let isAligned = ({rectangle, _}: Minecraft.Cuboid.Face.t) => {
   let (x, y, _, _) = rectangle
   mod(x, 2) == 0 && mod(y, 2) == 0
 }
 
+// prints whether a face is incorrectly offset or not, and draws a transparent rectangle over any offset faces. Not infallible, as sometimes when testing the face would be two pixels offset meaning that isAligned would not detect it, but it would usually still be visible as offset.
 let debugFace = (dest: Minecraft.Cuboid.Face.t) => {
   let rectString = (rectangle: Generator_Builder.rectangle): string => {
     let (x, y, _, _) = rectangle
@@ -140,6 +191,7 @@ let debugFace = (dest: Minecraft.Cuboid.Face.t) => {
   output
 }
 
+// draws a cuboid, then returns the output of the debug code for the cuboid.
 let drawAndDebugCuboid = (
   textureId: string,
   source: Minecraft.Cuboid.Source.t,
@@ -147,18 +199,34 @@ let drawAndDebugCuboid = (
   scale: Minecraft.scale,
   ~orientation: Generator.Orientation.t=#West,
   ~center: Minecraft.Cuboid.Dest.center=#Front,
+  ~flip: Generator_Texture.flip=#None,
   ~rotate: float=0.0,
+  ~blend: Generator_Texture.blend=#None,
   (),
 ): string => {
-  Minecraft.drawCuboid(textureId, source, position, scale, ~orientation, ~center, ~rotate, ())
+  Minecraft.drawCuboid(
+    textureId,
+    source,
+    position,
+    scale,
+    ~orientation,
+    ~center,
+    ~flip,
+    ~rotate,
+    ~blend,
+    (),
+  )
   let dest =
     Minecraft.Cuboid.Dest.setLayout(
       scale,
       orientation,
       center,
+      flip,
       rotate,
+      blend,
     )->Minecraft.Cuboid.Dest.translate(position)
 
+  // duplicate of code found in Cuboid.draw, so that the same points can be used for debugging.
   let (w, h, d) = scale
   let (x, y) = position
   let scale = switch center {
@@ -169,9 +237,11 @@ let drawAndDebugCuboid = (
   | _ => (w, h, d)
   }
 
+  // draw a blue dot at the axis of rotation, to make sure that the cuboid is rotating around the right place
   let (ax, ay) = Minecraft.Cuboid.Dest.getAxis(scale, orientation)
   Generator.fillRect((x + Minecraft.toInt(ax) - 2, y + Minecraft.toInt(ay) - 2, 4, 4), "#0000ff")
 
+  // Tests whether each face is incorrectly drawn or not.
   let output =
     "(" ++
     Belt.Float.toString(rotate) ++
@@ -191,6 +261,7 @@ let drawAndDebugCuboid = (
   output
 }
 
+// draw a Steve body, and display the debug output as text.
 let drawSteveBodyCuboid2 = (x, y, rotate, face, orientation) => {
   let x = x - 64
   let y = y - 64
@@ -209,24 +280,45 @@ let drawSteveBodyCuboid2 = (x, y, rotate, face, orientation) => {
   Generator.defineText(text)
 }
 
-let drawCuboidTestPage4 = () => {
-  Generator.usePage("Cuboid 4")
+// draw a Steve body, and display the debug output as text.
+let drawSteveBodyCuboid3 = (x, y, rotate, face, orientation, flip) => {
+  let text = drawAndDebugCuboid(
+    "Steve-Faces",
+    Minecraft.Character.steve.base.body,
+    (x, y),
+    (48, 72, 24),
+    ~center=face,
+    ~orientation,
+    ~rotate,
+    ~flip,
+    (),
+  )
+
+  Generator.defineText(text)
+}
+
+// Draw Steve's body at a given reflection.
+let drawCuboidTestPage5 = () => {
+  Generator.usePage("Cuboid 5")
   Generator.fillBackgroundColorWithWhite()
 
+  // Creates a button that changes the angle in increments of 90 degrees
   let angle =
     Generator.getSelectInputValue("Angle")->Belt.Int.fromString->Belt.Option.getWithDefault(0)
 
   Generator.defineButtonInput("Increment Angle", () => {
-    let nextAngle = angle >= 270 ? 0 : angle + 90
+    let nextAngle = angle >= 270 ? 0 : angle + 45
     let nextAngleString = Belt.Int.toString(nextAngle)
     Generator.setSelectInputValue("Angle", nextAngleString)
   })
 
+  // Selector for which face to be at the center of Steve's body.
   let f = Generator.defineAndGetSelectInput(
     "Face",
-    ["Front", "Right", "Back", "Left", "Top", "Bottom"],
+    ["Right", "Front", "Back", "Left", "Top", "Bottom"],
   )
 
+  // Selector for which orientation Steve's body will be in.
   let d = Generator.defineAndGetSelectInput("orientation", ["West", "East", "South", "North"])
   let face: Minecraft.Cuboid.Dest.center = switch f {
   | "Right" => #Right
@@ -246,8 +338,58 @@ let drawCuboidTestPage4 = () => {
   | _ => #West
   }
 
+  // Draw Steve Bodies
+  drawSteveBodyCuboid3(96, 96, Belt.Int.toFloat(angle), face, orientation, #None)
+  drawSteveBodyCuboid3(96, 320, Belt.Int.toFloat(angle), face, orientation, #Vertical)
+  drawSteveBodyCuboid3(320, 96, Belt.Int.toFloat(angle), face, orientation, #Horizontal)
+  drawSteveBodyCuboid3(320, 320, Belt.Int.toFloat(angle), #Front, #West, #None)
+}
+
+// Draw Steve's body at a given angle, and display whether its faces were drawn properly.
+let drawCuboidTestPage4 = () => {
+  Generator.usePage("Cuboid 4")
+  Generator.fillBackgroundColorWithWhite()
+
+  // Creates a button that changes the angle in increments of 90 degrees
+  let angle =
+    Generator.getSelectInputValue("Angle")->Belt.Int.fromString->Belt.Option.getWithDefault(0)
+
+  Generator.defineButtonInput("Increment Angle", () => {
+    let nextAngle = angle >= 270 ? 0 : angle + 90
+    let nextAngleString = Belt.Int.toString(nextAngle)
+    Generator.setSelectInputValue("Angle", nextAngleString)
+  })
+  // Selector for which face to be at the center of Steve's body.
+  let f = Generator.defineAndGetSelectInput(
+    "Face",
+    ["Front", "Right", "Back", "Left", "Top", "Bottom"],
+  )
+
+  // Selector for which orientation Steve's body will be in.
+  let d = Generator.defineAndGetSelectInput("orientation", ["West", "East", "South", "North"])
+  let face: Minecraft.Cuboid.Dest.center = switch f {
+  | "Right" => #Right
+  | "Front" => #Front
+  | "Left" => #Left
+  | "Back" => #Back
+  | "Top" => #Top
+  | "Bottom" => #Bottom
+  | _ => #Front
+  }
+
+  let orientation: Minecraft.Cuboid.Dest.orientation = switch d {
+  | "West" => #West
+  | "East" => #East
+  | "South" => #South
+  | "North" => #North
+  | _ => #West
+  }
+
+  // Draw Steve Body
   drawSteveBodyCuboid2(256, 256, Belt.Int.toFloat(angle), face, orientation)
 }
+
+// Draw Steve Body with options to change the scale, orientation, and center.
 
 let drawSteveBodyCuboid = (x, y, scale, orientation, center) => {
   Minecraft.drawCuboid(
@@ -255,12 +397,13 @@ let drawSteveBodyCuboid = (x, y, scale, orientation, center) => {
     Minecraft.Character.steve.base.body,
     (x, y),
     (2 * scale, 3 * scale, scale),
-    ~center,
     ~orientation,
+    ~center,
     (),
   )
 }
 
+// Page with every permutation of a cuboid with differing height, width and depth simultaneously.
 let drawCuboidTestPage3 = () => {
   Generator.usePage("Cuboid 3")
   Generator.fillBackgroundColorWithWhite()
@@ -298,6 +441,7 @@ let drawCuboidTestPage3 = () => {
   drawSteveBodyCuboid(420, y + 20, scale, #West, #Bottom)
 }
 
+// Draw a debug texture head with the option to change the head's center face.
 let drawSteveHeadCuboid2 = (x, y, center) => {
   let x = x - 64
   let y = y - 64
@@ -313,6 +457,7 @@ let drawSteveHeadCuboid2 = (x, y, center) => {
   )
 }
 
+// Draw heads with every possible face at the center, to check if the corners and faces are in the right position each time.
 let drawCuboidTestPage2 = () => {
   Generator.usePage("Cuboid 2")
   Generator.fillBackgroundColorWithWhite()
@@ -327,6 +472,7 @@ let drawCuboidTestPage2 = () => {
   drawSteveHeadCuboid2(387, 679, #Front)
 }
 
+// Draw Steve's head, with the option to change the placement of the back face.
 let drawSteveHeadCuboid = (x, y, size, orientation) => {
   let (w, h) = switch orientation {
   | #South | #North => (size * 3, size * 4)
@@ -343,6 +489,7 @@ let drawSteveHeadCuboid = (x, y, size, orientation) => {
   )
 }
 
+// Testing out the placements of the back face with the cuboid function.
 let drawCuboidTestPage = () => {
   Generator.usePage("Cuboid")
   Generator.fillBackgroundColorWithWhite()
@@ -1009,6 +1156,9 @@ let drawFaceTabsTestPage = () => {
 }
 
 let script = () => {
+  //drawWebTexturePage()
+  drawTextInput()
+  drawTextInputPage()
   drawCuboidTestPage4()
   drawCuboidTestPage3()
   drawCuboidTestPage2()
@@ -1027,13 +1177,13 @@ let script = () => {
 }
 
 let generator: Generator.generatorDef = {
-  id,
-  name,
-  history,
-  thumbnail: None,
+  id: id,
+  name: name,
+  history: history,
+  thumbnail: Some(thumbnail),
   video: None,
   instructions: None,
-  images,
-  textures,
-  script,
+  images: images,
+  textures: textures,
+  script: script,
 }

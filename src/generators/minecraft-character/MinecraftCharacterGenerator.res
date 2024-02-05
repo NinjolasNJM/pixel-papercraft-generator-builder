@@ -1,5 +1,4 @@
 let requireImage = id => Generator.requireImage("./images/" ++ id ++ ".png")
-let requireTexture = id => Generator.requireImage("./textures/" ++ id ++ ".png")
 
 let id = "minecraft-character"
 
@@ -15,6 +14,7 @@ let history = [
   "17 Jul 2021 M16 - Updated generator photo.",
   "27 May 2022 NinjolasNJM - Made folds drawn using drawFolds, and parts drawn using drawCuboid, and added title",
   "12 Jun 2022 NinjolasNJM - Updated to use new Minecraft module",
+  "02 Feb 2024 NinjolasNJM - added skin input",
 ]
 
 let thumbnail: Generator.thumnbnailDef = {
@@ -32,32 +32,13 @@ let instructions = `
 let images: array<Generator.imageDef> = [
   {id: "Background", url: requireImage("Background")},
   {id: "SteveTabs", url: requireImage("SteveTabs")},
-  {id: "SteveFolds", url: requireImage("SteveFolds")},
   {id: "AlexTabs", url: requireImage("AlexTabs")},
+  {id: "SteveFolds", url: requireImage("SteveFolds")},
   {id: "AlexFolds", url: requireImage("AlexFolds")},
   {id: "Labels", url: requireImage("Labels")},
 ]
 
-let textures: array<Generator.textureDef> = [
-  {
-    id: "Skin",
-    url: requireTexture("SkinSteve64x64"),
-    standardWidth: 64,
-    standardHeight: 64,
-  },
-  {
-    id: "Steve",
-    url: requireTexture("SkinSteve64x64"),
-    standardWidth: 64,
-    standardHeight: 64,
-  },
-  {
-    id: "Alex",
-    url: requireTexture("SkinAlex64x64"),
-    standardWidth: 64,
-    standardHeight: 64,
-  },
-]
+let textures: array<Generator.textureDef> = MinecraftSkins.skins
 
 let steve = Minecraft.Character.steve
 let alex = Minecraft.Character.alex
@@ -65,7 +46,7 @@ let alex = Minecraft.Character.alex
 let script = () => {
   // Inputs
 
-  Generator.defineTextureInput(
+  Generator.defineSkinInput(
     "Skin",
     {
       standardWidth: 64,
@@ -255,13 +236,13 @@ let script = () => {
 }
 
 let generator: Generator.generatorDef = {
-  id: id,
-  name: name,
-  history: history,
+  id,
+  name,
+  history,
   thumbnail: Some(thumbnail),
   video: None,
   instructions: Some(<Generator.Markdown> {instructions} </Generator.Markdown>),
-  images: images,
-  textures: textures,
-  script: script,
+  images,
+  textures,
+  script,
 }

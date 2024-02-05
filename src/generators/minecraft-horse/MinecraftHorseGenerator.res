@@ -19,13 +19,13 @@ let imageIds = [
   "Folds-Mule",
   "Labels",
 ]
-let toImageDef = (id): Generator.imageDef => {id: id, url: requireImage(id)}
+let toImageDef = (id): Generator.imageDef => {id, url: requireImage(id)}
 let images: array<Generator.imageDef> = imageIds->Js.Array2.map(toImageDef)
 
 let textures: array<Generator.textureDef> = [
   {
     id: "Horse",
-    url: requireTexture("horse_brown"),
+    url: requireTexture("horse_white"),
     standardWidth: 64,
     standardHeight: 64,
   },
@@ -340,13 +340,13 @@ let script = () => {
 }
 
 let generator: Generator.generatorDef = {
-  id: id,
-  name: name,
-  history: history,
+  id,
+  name,
+  history,
   thumbnail: Some(thumbnail),
   video: None,
   instructions: None,
-  images: images,
-  textures: textures,
-  script: script,
+  images,
+  textures,
+  script,
 }
