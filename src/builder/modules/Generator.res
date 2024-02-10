@@ -384,8 +384,15 @@ let hasTexture = (id: string) => {
   Builder.hasTexture(model.contents, id)
 }
 
-let drawText = (text: string, position: Builder.position, size: int) => {
-  model := Generator_Builder.drawText(model.contents, text, position, size)
+let drawText = (
+  text: string,
+  position: Builder.position,
+  ~color: string="#000000",
+  ~size: int=2,
+  ~font: string="Mojangles",
+  (),
+) => {
+  model := Generator_Builder.drawText(model.contents, text, position, ~color, ~size, ~font)
 }
 
 module Point = {

@@ -140,11 +140,21 @@ let drawTextInputPage = () => {
   Generator.usePage("Text Input")
   Generator.fillBackgroundColorWithWhite()
 
-  let textInput = Generator.defineAndGetSelectInput("Text Choices", ["One", "Two", "Three", "Four"])
-  let textSize = Generator.defineAndGetRangeInput("Text Size", {min: 0, max: 10, value: 2, step: 1})
-  Generator.drawText(textInput, (20, 40), textSize)
-  Generator.drawText(Generator.getStringInputValue("Input"), (20, 70), textSize)
-  Generator.drawImage(Generator.getStringInputValue("Input"), (100, 100))
+  Generator.drawText(Generator.getStringInputValue("Input"), (20, 40), ~color="#a71810", ())
+  Generator.drawText(
+    Generator.getStringInputValue("Input"),
+    (20, 70),
+    ~color="#00ff80",
+    ~font="Standard Galactic Alphabet",
+    (),
+  )
+  Generator.drawText(
+    Generator.getStringInputValue("Input"),
+    (20, 100),
+    ~color="#0000d4",
+    ~font="Illageral",
+    (),
+  )
 }
 
 let drawLandscapeTestPage = () => {
@@ -155,7 +165,7 @@ let drawLandscapeTestPage = () => {
   Generator.drawTexture("GrassTop", (0, 0, 16, 16), (200, 400, 128, 128), ())
   Minecraft.drawCuboid("Steve", Minecraft.Character.steve.base.body, (200, 400), (64, 96, 32), ())
   Generator.drawLine((200, 400), (300, 500), ~color="#00ff00", ())
-  Generator.drawText("Hello There", (200, 400), 16)
+  Generator.drawText("Hello There", (200, 400), ())
 
   Generator.fillBackgroundColor("#a71810")
 }
@@ -591,7 +601,7 @@ let drawFoldLinesTestPage = () => {
   let ox = 40
   let oy = 70
   let size = 64
-  Generator.drawText("Clockwise", (ox, oy - 20), 2)
+  Generator.drawText("Clockwise", (ox, oy - 20), ())
   drawSteveHead("Steve", ox, oy, size)
   drawFoldBox(ox + size, oy + size, size, #clockwise)
 
@@ -599,11 +609,11 @@ let drawFoldLinesTestPage = () => {
   let ox = 300
   let oy = 70
   let size = 64
-  Generator.drawText("Anti-Clockwise", (ox, oy - 20), 2)
+  Generator.drawText("Anti-Clockwise", (ox, oy - 20), ())
   drawSteveHead("Steve", ox, oy, size)
   drawFoldBox(ox + size, oy + size, size, #anticlockwise)
 
-  Generator.drawText("Arbitrary Sizes", (40, 320), 2)
+  Generator.drawText("Arbitrary Sizes", (40, 320), ())
 
   let ox = 40
   let oy = 340
@@ -625,7 +635,7 @@ let drawFoldLinesTestPage = () => {
     drawFoldBox(x, y, size, #clockwise)
   }
 
-  Generator.drawText("Power of 2 Sizes", (40, 440), 2)
+  Generator.drawText("Power of 2 Sizes", (40, 440), ())
 
   let ox = 40
   let oy = 460
@@ -638,7 +648,7 @@ let drawFoldLinesTestPage = () => {
     drawFoldBox(x, y, size, #clockwise)
   }
 
-  Generator.drawText("Contrast", (40, 560), 2)
+  Generator.drawText("Contrast", (40, 560), ())
   let ox = 40
   let oy = 580
   let size = 128
@@ -648,7 +658,7 @@ let drawFoldLinesTestPage = () => {
 
   let ox = 280
   let oy = 560
-  Generator.drawText("Angles", (ox, oy), 2)
+  Generator.drawText("Angles", (ox, oy), ())
   drawFoldsSun(ox + 140, oy + 100, 100.0)
 }
 
@@ -773,7 +783,7 @@ let drawTextureImagePageColorTestPage = () => {
   }
   let pixelSize = 64 / 4
 
-  Generator.drawText("Texture Color Test", (20, 40), 3) // 24
+  Generator.drawText("Texture Color Test", (20, 40), ~size=3, ()) // 24
   Generator.drawTexture("TextureColors64x64", (0, 0, 64, 64), (500, 20, 64, 64), ())
 
   let textureColor00 = getTexturePixelColor("TextureColors64x64", 0 * pixelSize, 0 * pixelSize)
@@ -781,12 +791,12 @@ let drawTextureImagePageColorTestPage = () => {
   let textureColor22 = getTexturePixelColor("TextureColors64x64", 2 * pixelSize, 2 * pixelSize)
   let textureColor33 = getTexturePixelColor("TextureColors64x64", 3 * pixelSize, 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(textureColor00, "#000000ff"), (20, 80), 1)
-  Generator.drawText(makeAssertText(textureColor11, "#777777ff"), (20, 120), 1)
-  Generator.drawText(makeAssertText(textureColor22, "#ff000080"), (20, 160), 1)
-  Generator.drawText(makeAssertText(textureColor33, "#ffffff80"), (20, 200), 1)
+  Generator.drawText(makeAssertText(textureColor00, "#000000ff"), (20, 80), ~size=1, ())
+  Generator.drawText(makeAssertText(textureColor11, "#777777ff"), (20, 120), ~size=1, ())
+  Generator.drawText(makeAssertText(textureColor22, "#ff000080"), (20, 160), ~size=1, ())
+  Generator.drawText(makeAssertText(textureColor33, "#ffffff80"), (20, 200), ~size=1, ())
 
-  Generator.drawText("Image Color Test", (20, 260), 3)
+  Generator.drawText("Image Color Test", (20, 260), ~size=3, ())
   Generator.drawImage("ImageColors64x64", (500, 240))
 
   let imageColor00 = getImagePixelColor("ImageColors64x64", 0 * pixelSize, 0 * pixelSize)
@@ -794,12 +804,12 @@ let drawTextureImagePageColorTestPage = () => {
   let imageColor22 = getImagePixelColor("ImageColors64x64", 2 * pixelSize, 2 * pixelSize)
   let imageColor33 = getImagePixelColor("ImageColors64x64", 3 * pixelSize, 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(imageColor00, "#000000ff"), (20, 300), 1)
-  Generator.drawText(makeAssertText(imageColor11, "#777777ff"), (20, 340), 1)
-  Generator.drawText(makeAssertText(imageColor22, "#ff000080"), (20, 380), 1)
-  Generator.drawText(makeAssertText(imageColor33, "#ffffff80"), (20, 420), 1)
+  Generator.drawText(makeAssertText(imageColor00, "#000000ff"), (20, 300), ~size=1, ())
+  Generator.drawText(makeAssertText(imageColor11, "#777777ff"), (20, 340), ~size=1, ())
+  Generator.drawText(makeAssertText(imageColor22, "#ff000080"), (20, 380), ~size=1, ())
+  Generator.drawText(makeAssertText(imageColor33, "#ffffff80"), (20, 420), ~size=1, ())
 
-  Generator.drawText("Page Color Test", (20, 480), 3)
+  Generator.drawText("Page Color Test", (20, 480), ~size=3, ())
   let imageX = 500
   let imageY = 460
   Generator.drawImage("ImageColors64x64", (imageX, imageY))
@@ -810,10 +820,10 @@ let drawTextureImagePageColorTestPage = () => {
   let pageColor22 = getPagePixelColor(imageX + 2 * pixelSize, imageY + 2 * pixelSize)
   let pageColor33 = getPagePixelColor(imageX + 3 * pixelSize, imageY + 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(pageColor00, "#000000ff"), (20, 520), 1)
-  Generator.drawText(makeAssertText(pageColor11, "#777777ff"), (20, 560), 1)
-  Generator.drawText(makeAssertText(pageColor22, "#ff7f7fff"), (20, 600), 1) // ff000080 + ffffffff === ff7f7fff
-  Generator.drawText(makeAssertText(pageColor33, "#ffffffff"), (20, 640), 1) // ffffff80 + ffffffff === ffffffff
+  Generator.drawText(makeAssertText(pageColor00, "#000000ff"), (20, 520), ~size=1, ())
+  Generator.drawText(makeAssertText(pageColor11, "#777777ff"), (20, 560), ~size=1, ())
+  Generator.drawText(makeAssertText(pageColor22, "#ff7f7fff"), (20, 600), ~size=1, ()) // ff000080 + ffffffff === ff7f7fff
+  Generator.drawText(makeAssertText(pageColor33, "#ffffffff"), (20, 640), ~size=1, ()) // ffffff80 + ffffffff === ffffffff
 }
 
 let drawButtonInputTest = () => {
@@ -1160,7 +1170,7 @@ let script = () => {
   //drawWebTexturePage()
   drawTextInput()
   drawTextInputPage()
-  drawCuboidTestPage4()
+  /* drawCuboidTestPage4()
   drawCuboidTestPage3()
   drawCuboidTestPage2()
   drawFaceTabsTestPage()
@@ -1174,7 +1184,7 @@ let script = () => {
   drawTextureRotation256Test()
   drawTextureCropRotationTest()
   drawTextureTintTest()
-  drawTextureCropTest()
+  drawTextureCropTest() */
 }
 
 let generator: Generator.generatorDef = {

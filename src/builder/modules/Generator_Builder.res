@@ -862,7 +862,14 @@ let hasTexture = (model: Model.t, id: string) => {
   }
 }
 
-let drawText = (model: Model.t, text: string, position: position, size: int) => {
+let drawText = (
+  model: Model.t,
+  text: string,
+  position: position,
+  ~color: string,
+  ~size: int,
+  ~font: string,
+) => {
   let model = ensureCurrentPage(model)
   switch model.currentPage {
   | None => ()
@@ -871,11 +878,12 @@ let drawText = (model: Model.t, text: string, position: position, size: int) => 
       let (x, y) = page.isLandscape ? (page.canvasWithContext.width - y, x) : (x, y)
       page.canvasWithContext.context->addAliasingFilter
       page.canvasWithContext.context->Context2d.save
+      page.canvasWithContext.context->Context2d.setFillStyle(color)
       if page.isLandscape {
         page.canvasWithContext.context->Context2d.translate(Belt.Int.toFloat(x + y), 5.0)
         page.canvasWithContext.context->Context2d.rotate(Js.Math._PI /. 2.0)
       }
-      let font = Belt.Int.toString(size * 10) ++ "px Mojangles"
+      let font = Belt.Int.toString(size * 10) ++ "px " ++ font
       page.canvasWithContext.context->Context2d.font(font)
 
       page.canvasWithContext.context->Context2d.fillText(text, x, y)
