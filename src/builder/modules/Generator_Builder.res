@@ -869,6 +869,7 @@ let drawText = (
   ~color: string,
   ~size: int,
   ~font: string,
+  ~rotate: float,
 ) => {
   let model = ensureCurrentPage(model)
   switch model.currentPage {
@@ -883,6 +884,7 @@ let drawText = (
         page.canvasWithContext.context->Context2d.translate(Belt.Int.toFloat(x + y), 5.0)
         page.canvasWithContext.context->Context2d.rotate(Js.Math._PI /. 2.0)
       }
+      page.canvasWithContext.context->Context2d.rotate(rotate *. Js.Math._PI /. 180.0)
       let font = Belt.Int.toString(size * 10) ++ "px " ++ font
       page.canvasWithContext.context->Context2d.font(font)
 

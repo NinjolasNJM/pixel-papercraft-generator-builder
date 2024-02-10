@@ -139,8 +139,17 @@ let drawTextInput = () => {
 let drawTextInputPage = () => {
   Generator.usePage("Text Input")
   Generator.fillBackgroundColorWithWhite()
+  Generator.setStringInputValue("Input", "cewuovwbdocansoson")
 
-  Generator.drawText(Generator.getStringInputValue("Input"), (20, 40), ~color="#a71810", ())
+  Generator.fillRect((20, 40, 16, 16), "#00ffff")
+  Generator.drawText(
+    Generator.getStringInputValue("Input"),
+    (20, 40),
+    ~color="#a71810",
+    ~rotate=30.0,
+    (),
+  )
+  Generator.fillRect((20, 70, 16, 16), "#00ffff")
   Generator.drawText(
     Generator.getStringInputValue("Input"),
     (20, 70),
@@ -148,6 +157,7 @@ let drawTextInputPage = () => {
     ~font="Standard Galactic Alphabet",
     (),
   )
+  Generator.fillRect((20, 100, 16, 16), "#00ffff")
   Generator.drawText(
     Generator.getStringInputValue("Input"),
     (20, 100),
@@ -1170,6 +1180,7 @@ let script = () => {
   //drawWebTexturePage()
   drawTextInput()
   drawTextInputPage()
+  drawLandscapeTestPage()
   /* drawCuboidTestPage4()
   drawCuboidTestPage3()
   drawCuboidTestPage2()

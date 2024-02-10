@@ -390,9 +390,10 @@ let drawText = (
   ~color: string="#000000",
   ~size: int=2,
   ~font: string="Mojangles",
+  ~rotate: float=0.0,
   (),
 ) => {
-  model := Generator_Builder.drawText(model.contents, text, position, ~color, ~size, ~font)
+  model := Generator_Builder.drawText(model.contents, text, position, ~color, ~size, ~font, ~rotate)
 }
 
 module Point = {
