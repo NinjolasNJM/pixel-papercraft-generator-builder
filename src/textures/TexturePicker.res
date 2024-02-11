@@ -16,7 +16,7 @@ let make = (
   | Some(textureVersion) => {
       let {textureDef, frames} = textureVersion
       <div className="mb-4">
-        <TexturePicker textureDef frames onSelect enableRotation enableErase />
+        <TexturePicker textureDef frames onSelect enableRotation enableErase /> // enableAddRemove
       </div>
     }
   }

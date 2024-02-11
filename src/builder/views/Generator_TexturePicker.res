@@ -329,6 +329,7 @@ module Preview = {
     ~frame: option<TextureFrame.frame>,
     ~rotation: Rotation.t,
     ~flip: Generator_Texture.flip,
+    ~blend: string,
   ) => {
     <div className="flex flex-col items-center" style={ReactDOM.Style.make(~width="148px", ())}>
       {switch frame {
@@ -353,6 +354,8 @@ module Preview = {
           let tileStyle = makeTileStyle(textureDef, frame, false, false, 128)
           let transformStyle = ReactDOM.Style.make(
             ~transform=`rotate(${deg(rotationDegrees)}) ${flipTransform}`,
+            ~backgroundColor=blend,
+            ~backgroundBlendMode="multiply",
             (),
           )
           let style = ReactDOM.Style.combine(tileStyle, transformStyle)
@@ -560,7 +563,16 @@ let make = (
         })->React.array}
       </div>
       <div className="ml-4">
-        <Preview textureDef frame=selectedFrame rotation flip />
+        <Preview
+          textureDef
+          frame=selectedFrame
+          rotation
+          flip
+          blend={switch tint {
+          | None => "-"
+          | Some(v) => v
+          }}
+        />
         <div className="flex justify-around">
           {enableRotation ? <RotationButton onClick={_ => onRotateClick()} /> : React.null}
           {enableErase ? <EraseButton onClick={_ => onEraseClick()} /> : React.null}
