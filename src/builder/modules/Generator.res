@@ -166,8 +166,12 @@ let defineText = (text: string) => {
   model := Builder.defineText(model.contents, text)
 }
 
-let usePage = (~isLandscape: bool=false, id: string) => {
-  model := Builder.usePage(model.contents, id, isLandscape)
+let usePage = (
+  ~size: Generator_PageSize.t=Generator_PageSize.a4,
+  ~isLandscape: bool=false,
+  id: string,
+) => {
+  model := Builder.usePage(model.contents, id, size, isLandscape)
 }
 
 let fillBackgroundColor = (color: string) => {

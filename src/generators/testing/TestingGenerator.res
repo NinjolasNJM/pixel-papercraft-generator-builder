@@ -101,8 +101,8 @@ module Config = {
   let gridCellSize = 128
   let gridWidth = gridCellSize * colCount
   let gridHeight = gridCellSize * rowCount
-  let offsetX = (PageSize.A4.px.width - gridWidth) / 2
-  let offsetY = (PageSize.A4.px.height - gridHeight) / 2
+  let offsetX = (PageSize.a4.px.width - gridWidth) / 2
+  let offsetY = (PageSize.a4.px.height - gridHeight) / 2
 }
 
 let assertEquals = (actual, expected) => {
@@ -145,6 +145,18 @@ let drawTextInputPage = () => {
   Generator.drawText(textInput, (20, 40), textSize)
   Generator.drawText(Generator.getStringInputValue("Input"), (20, 70), textSize)
   Generator.drawImage(Generator.getStringInputValue("Input"), (100, 100))
+}
+
+let drawTripleTestPage = () => {
+  Generator.usePage(~size=Generator_PageSize.a4Triple, "Triple Test Page")
+  Generator.drawTexture("Steve", Minecraft.Character.steve.base.head.front, (100, 100, 64, 64), ())
+  Generator.drawTab((100, 100, 64, 64), #North, ())
+  Generator.drawTexture("GrassTop", (0, 0, 16, 16), (200, 400, 128, 128), ())
+  Minecraft.drawCuboid("Steve", Minecraft.Character.steve.base.body, (200, 400), (64, 96, 32), ())
+  Generator.drawLine((200, 400), (300, 500), ~color="#00ff00", ())
+  Generator.drawText("Hello There", (200, 400), 16)
+
+  Generator.fillBackgroundColor("#a71810")
 }
 
 let drawLandscapeTestPage = () => {
@@ -1158,6 +1170,8 @@ let drawFaceTabsTestPage = () => {
 
 let script = () => {
   //drawWebTexturePage()
+  drawLandscapeTestPage()
+  drawTripleTestPage()
   drawTextInput()
   drawTextInputPage()
   drawCuboidTestPage4()

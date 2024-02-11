@@ -13,7 +13,7 @@ module RegionInputs = {
     (Belt.Int.toFloat(value) *. scale)->Js.Math.round->Belt.Float.toInt
 
   let scaleRegion = ((x, y, w, h), actualWidth) => {
-    let scale = Js.Int.toFloat(actualWidth) /. Js.Int.toFloat(PageSize.A4.px.width)
+    let scale = Js.Int.toFloat(actualWidth) /. Js.Int.toFloat(PageSize.a4.px.width)
     (scaleInt(x, scale), scaleInt(y, scale), scaleInt(w, scale), scaleInt(h, scale))
   }
 
@@ -82,7 +82,7 @@ module SaveAsPDFButton = {
         if index > 0 {
           JsPdf.addPage(doc, #a4, #portrait)
         }
-        doc->JsPdf.addImage(dataUrl, #PNG, 0, 0, PageSize.A4.mm.width, PageSize.A4.mm.height)
+        doc->JsPdf.addImage(dataUrl, #PNG, 0, 0, PageSize.a4.mm.width, PageSize.a4.mm.height)
       })
       doc->JsPdf.save(generatorDef.name)
     }
@@ -129,8 +129,8 @@ module PrintImageButton = {
             html, body, img {
               margin: 0;
               padding: 0;
-              width: ${Js.Int.toString(PageSize.A4.mm.width - 1)}mm;
-              height: ${Js.Int.toString(PageSize.A4.mm.height - 1)}mm;
+              width: ${Js.Int.toString(PageSize.a4.mm.width - 1)}mm;
+              height: ${Js.Int.toString(PageSize.a4.mm.height - 1)}mm;
             }
           }
         `
@@ -214,7 +214,7 @@ let make = (
 
       let style = ReactDOM.Style.combine(canvasStyle, transformStyle)
 
-      let pageMaxWidth = PageSize.A4.px.width //page.isLandscape ? PageSize.A4.px.height : PageSize.A4.px.width
+      let pageMaxWidth = PageSize.a4.px.width //page.isLandscape ? PageSize.a4.px.height : PageSize.a4.px.width
 
       <div key={page.id}>
         {showPageIds
