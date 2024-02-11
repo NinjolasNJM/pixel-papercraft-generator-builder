@@ -20,6 +20,11 @@ let itemDefinitions = [
   (Texture_minecraft_1_20_4_items.data, 16),
 ]
 
+let bannerDefinitions = [
+  (Texture_minecraft_1_20_4_banner.data, 64),
+  (Texture_minecraft_1_20_4_shield.data, 64),
+]
+
 let allDefinitions = Belt.Array.concat(blockDefinitions, itemDefinitions)
 
 type textureVersion = {
@@ -43,6 +48,8 @@ let blockTextureDefs = textureDefs(blockDefinitions)
 let itemTextureDefs = textureDefs(itemDefinitions)
 
 let allTextureDefs = textureDefs(allDefinitions) //Belt.Array.concat(blockTextureDefs, itemTextureDefs)
+
+let bannerTextureDefs = textureDefs(bannerDefinitions)
 
 let versionIds = definitions =>
   Belt.Array.map(textureVersions(definitions), ({textureDef, _}) =>

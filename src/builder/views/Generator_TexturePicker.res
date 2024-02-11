@@ -9,8 +9,8 @@ module TintSelector = {
 
   let makeOptions = tints => {
     tints
-    ->Belt.Array.mapWithIndex((index1, {biomes, color}: Tints.tint) => {
-      biomes->Belt.Array.mapWithIndex((index2, biome) => {
+    ->Belt.Array.mapWithIndex((index1, {name, color}: Tints.tint) => {
+      name->Belt.Array.mapWithIndex((index2, biome) => {
         let key = Js.Int.toString(index1) ++ "-" ++ Js.Int.toString(index2)
         <option key={key} value={color}> {biome->React.string} </option>
       })
@@ -97,6 +97,7 @@ module TintSelector = {
         <optgroup key="grass" label="Grass"> {makeOptions(Tints.tints.grass)} </optgroup>
         <optgroup key="foliage" label="Foliage"> {makeOptions(Tints.tints.foliage)} </optgroup>
         <optgroup key="water" label="Water"> {makeOptions(Tints.tints.water)} </optgroup>
+        <optgroup key="dye" label="Dye"> {makeOptions(Tints.tints.dye)} </optgroup>
       </select>
       {switch selectedTint {
       | CustomTint =>

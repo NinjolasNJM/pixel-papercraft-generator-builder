@@ -22,7 +22,7 @@ let images: array<Generator.imageDef> = [
 ]
 
 let textures: array<Generator.textureDef> = Js.Array.concat(
-  TextureVersions.allTextureDefs,
+  TextureVersions.bannerTextureDefs,
   [
     {
       id: "CenterFold",
@@ -33,10 +33,7 @@ let textures: array<Generator.textureDef> = Js.Array.concat(
   ],
 )
 
-let definitions = Belt.Array.concat(
-  TextureVersions.blockDefinitions,
-  TextureVersions.itemDefinitions,
-)
+let definitions = TextureVersions.bannerDefinitions
 
 let cycleTextureOffset = (t, tileWidth) => {
   let t = if t === tileWidth {
