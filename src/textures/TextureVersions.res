@@ -21,8 +21,8 @@ let itemDefinitions = [
 ]
 
 let bannerDefinitions = [
-  (Texture_minecraft_1_20_4_banner.data, 64),
   (Texture_minecraft_1_20_4_shield.data, 64),
+  (Texture_minecraft_1_20_4_banner.data, 64),
 ]
 
 let allDefinitions = Belt.Array.concat(blockDefinitions, itemDefinitions)

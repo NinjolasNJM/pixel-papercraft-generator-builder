@@ -430,8 +430,7 @@ let make = (
   ~textureDef: Generator.textureDef,
   ~frames: array<TextureFrame.frame>,
   ~onSelect: SelectedTexture.t => unit,
-  ~enableRotation: bool=true,
-  ~enableErase: bool=true,
+  ~singleStack: bool=false,
 ) => {
   let (search, setSearch) = React.useState(() => None)
   let (selectedFrame, setSelectedFrame) = React.useState(() => None)
@@ -575,16 +574,16 @@ let make = (
           }}
         />
         <div className="flex justify-around">
-          {enableRotation ? <RotationButton onClick={_ => onRotateClick()} /> : React.null}
-          {enableErase ? <EraseButton onClick={_ => onEraseClick()} /> : React.null}
+          {singleStack ? React.null : <RotationButton onClick={_ => onRotateClick()} />}
+          {singleStack ? React.null : <EraseButton onClick={_ => onEraseClick()} />}
         </div>
         <div className="flex justify-around mt-4">
-          {enableRotation
-            ? <FlipHorizontalButton onClick={_ => onFlipClick(~vertical=false)} />
-            : React.null}
-          {enableRotation
-            ? <FlipVerticalButton onClick={_ => onFlipClick(~vertical=true)} />
-            : React.null}
+          {singleStack
+            ? React.null
+            : <FlipHorizontalButton onClick={_ => onFlipClick(~vertical=false)} />}
+          {singleStack
+            ? React.null
+            : <FlipVerticalButton onClick={_ => onFlipClick(~vertical=true)} />}
         </div>
       </div>
     </div>

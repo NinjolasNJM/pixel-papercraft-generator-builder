@@ -221,8 +221,7 @@ let script = () => {
       onSelect={selectedTexture => {
         onChange(TexturePicker.SelectedTexture.encode(selectedTexture))
       }}
-      enableRotation=false
-      enableErase=false
+      singleStack=true
     />
   })
 
@@ -253,6 +252,14 @@ let script = () => {
       }
     | None => ()
     }
+  })
+  // Show a button which removes the last texture from the page
+  Generator.defineButtonInput("Remove Item", () => {
+    let _ = Js.Array2.pop(selectedTextureFrames)
+    Generator.setStringInputValue(
+      "SelectedTextureFrames",
+      TexturePicker.SelectedTexture.encodeArray(selectedTextureFrames),
+    )
   })
 
   // Show a button which allows the items to be cleared

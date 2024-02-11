@@ -685,6 +685,36 @@ module Minecart = {
   }
 }
 
+module Banner = {
+  type t = {
+    cloth: Cuboid.Source.t,
+    pole: Cuboid.Source.t,
+    crossbar: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+
+  let banner = {
+    cloth: make((20, 40, 1))->translate((0, 0)),
+    pole: make((2, 42, 2))->translate((44, 0)),
+    crossbar: make((20, 2, 2))->translate((0, 42)),
+  }
+}
+
+module Shield = {
+  type t = {
+    boss: Cuboid.Source.t,
+    handle: Cuboid.Source.t,
+  }
+
+  let {make, translate} = module(Cuboid.Source)
+
+  let shield = {
+    boss: make((12, 22, 1))->translate((0, 0)),
+    handle: make((2, 6, 6))->translate((26, 0)),
+  }
+}
+
 let setTabSize = (tabSize: int) => {
   Generator.setIntegerVariable("tabSize", tabSize)
 }

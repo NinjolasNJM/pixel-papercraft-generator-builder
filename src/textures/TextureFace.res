@@ -83,3 +83,52 @@ let draw = (
     drawTexture(selectedTextureFrame, source, destination, ~flip, ~rotate, ())
   })
 }
+
+let drawCuboid = (
+  faceId,
+  source: Minecraft.Cuboid.Source.t,
+  position: Builder.position,
+  scale: Minecraft.scale,
+  ~orientation: Minecraft.Cuboid.Dest.orientation=#West,
+  ~center: Minecraft.Cuboid.Dest.center=#Front,
+  ~flip: Generator_Texture.flip=#None,
+  ~rotate: float=0.0,
+  (),
+) => {
+  let selectedTextureFrames = TexturePicker.SelectedTexture.decodeArray(
+    Generator.getStringInputValue(faceId),
+  )
+  selectedTextureFrames->Js.Array2.forEach(selectedTextureFrame => {
+    let {textureDefId, frame, rotation, flip: textureFlip, blend} = selectedTextureFrame
+    let (tx, ty, _, _) = frame.rectangle
+
+    let (newFlip, rotation) = TexturePicker.Flip.next(flip, textureFlip, rotation)
+
+    /* let source = switch rotation {
+  | Rot0 => (ix, iy, sw, sh) // Default positions
+  | Rot90 => (tx + sy, ty + tw - (sw + sx), sh, sw)
+  | Rot180 => (tx + tw - (sw + sx), ty + th - (sh + sy), sw, sh)
+  | Rot270 => (tx + th - (sh + sy), ty + sx, sh, sw)
+  }
+  let destination = switch rotation {
+  | Rot0 => (dx, dy, dw, dh)
+  | Rot90 => (dx + (dw - dh) / 2, dy - (dw - dh) / 2, dh, dw)
+  | Rot180 => (dx, dy, dw, dh)
+  | Rot270 => (dx + (dw - dh) / 2, dy - (dw - dh) / 2, dh, dw)
+  }*/ // We don't yet need to have rotated textures as cuboids
+    let rot = rotate +. TexturePicker.Rotation.toDegrees(rotation)
+
+    Minecraft.drawCuboid(
+      textureDefId,
+      source->Minecraft.Cuboid.Source.translate((tx, ty)),
+      position,
+      scale,
+      ~orientation,
+      ~center,
+      ~flip={newFlip},
+      ~rotate={rot},
+      ~blend={blend},
+      (),
+    )
+  })
+}
