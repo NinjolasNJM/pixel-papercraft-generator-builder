@@ -76,6 +76,7 @@ let script = () => {
         onChange(TexturePicker.SelectedTexture.encode(selectedTexture))
       }}
       singleStack=false
+      isBanner=false
     />
   })
 

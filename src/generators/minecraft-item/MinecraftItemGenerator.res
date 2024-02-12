@@ -222,6 +222,7 @@ let script = () => {
         onChange(TexturePicker.SelectedTexture.encode(selectedTexture))
       }}
       singleStack=true
+      isBanner=false
     />
   })
 

@@ -22,37 +22,32 @@ let images: array<Generator.imageDef> = [
 ]
 
 let textures: array<Generator.textureDef> = Js.Array.concat(
-  MinecraftSkins.skins,
-  Js.Array.concat(
-    TextureVersions.bannerTextureDefs,
-    [
-      {
-        id: "Banner Base",
-        url: Generator.requireImage("./textures/banner_base.png"),
-        standardWidth: 64,
-        standardHeight: 64,
-      },
-      {
-        id: "Shield Base- No Pattern",
-        url: Generator.requireImage("./textures/shield_base_nopattern.png"),
-        standardWidth: 64,
-        standardHeight: 64,
-      },
-      {
-        id: "Shield Base",
-        url: Generator.requireImage("./textures/shield_base.png"),
-        standardWidth: 64,
-        standardHeight: 64,
-      },
-    ],
-  ),
+  TextureVersions.bannerTextureDefs,
+  [
+    {
+      id: "Banner Base",
+      url: Generator.requireImage("./textures/banner_base.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Shield Base- No Pattern",
+      url: Generator.requireImage("./textures/shield_base_nopattern.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Shield Base",
+      url: Generator.requireImage("./textures/shield_base.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+  ],
 )
 
 let definitions = TextureVersions.bannerDefinitions
 
 let script = () => {
-  //Generator.usePage(~size=Generator_PageSize.a4Triple, "Page")
-
   // Show a drop down of different texture versions
   Generator.defineSelectInput("Version", TextureVersions.versionIds(definitions))
   let versionId = Generator.getSelectInputValue("Version")
@@ -69,6 +64,7 @@ let script = () => {
         onChange(TexturePicker.SelectedTexture.encode(selectedTexture))
       }}
       singleStack=true
+      isBanner=true
     />
   })
 
@@ -109,14 +105,6 @@ let script = () => {
     | "Banner" => Types.Banner.draw("SelectedTextureFrames", ox, oy, showFolds)
     | _ => ()
     }
-    Minecraft.drawCuboid("Skin", Minecraft.Character.steve.base.head, (ox, oy), (64, 64, 64), ())
-    Minecraft.drawCuboid(
-      "Skin",
-      Minecraft.Character.steve.base.head,
-      (ox, oy + 192),
-      (64, 64, 64),
-      (),
-    )
   }
 
   // Show a button which adds the selected texture to the page

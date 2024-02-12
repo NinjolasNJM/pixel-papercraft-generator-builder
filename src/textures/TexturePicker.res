@@ -9,13 +9,14 @@ let make = (
   ~textureVersion: option<TextureVersions.textureVersion>,
   ~onSelect: TexturePicker.SelectedTexture.t => unit,
   ~singleStack: bool,
+  ~isBanner: bool,
 ) => {
   switch textureVersion {
   | None => React.null
   | Some(textureVersion) => {
       let {textureDef, frames} = textureVersion
       <div className="mb-4">
-        <TexturePicker textureDef frames onSelect singleStack />
+        <TexturePicker textureDef frames onSelect singleStack isBanner />
       </div>
     }
   }

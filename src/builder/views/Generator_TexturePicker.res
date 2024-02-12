@@ -45,7 +45,7 @@ module TintSelector = {
   }
 
   @react.component
-  let make = (~onChange) => {
+  let make = (~isBanner, ~onChange) => {
     let (selectedTint, setSelectedTint) = React.useState(() => NoTint)
     let (customTint, setCustomTint) = React.useState(() => None)
 
@@ -94,10 +94,15 @@ module TintSelector = {
         className="border border-gray-300 rounded text-gray-600 h-8 pl-5 pr-10 mr-4 bg-white hover:border-gray-400 focus:outline-none appearance-none">
         <option value="None"> {"No tint"->React.string} </option>
         <option value="Custom"> {"Custom tint"->React.string} </option>
+        {isBanner
+          ? <optgroup key="dye" label="Dye"> {makeOptions(Tints.tints.dye)} </optgroup>
+          : React.null}
         <optgroup key="grass" label="Grass"> {makeOptions(Tints.tints.grass)} </optgroup>
         <optgroup key="foliage" label="Foliage"> {makeOptions(Tints.tints.foliage)} </optgroup>
         <optgroup key="water" label="Water"> {makeOptions(Tints.tints.water)} </optgroup>
-        <optgroup key="dye" label="Dye"> {makeOptions(Tints.tints.dye)} </optgroup>
+        {isBanner
+          ? React.null
+          : <optgroup key="dye" label="Dye"> {makeOptions(Tints.tints.dye)} </optgroup>}
       </select>
       {switch selectedTint {
       | CustomTint =>
@@ -230,12 +235,12 @@ let bgGray400 = "rgb(156 163 175)"
 
 let borderSize = 4
 
-let makeTileBaseStyle = (isSelected, tileSize) => {
+let makeTileBaseStyle = (isSelected, tileSize, isBanner) => {
   let borderColor = isSelected ? bgGray400 : bgGray200
   ReactDOM.Style.make(
     ~border=makeBorder(borderSize, "solid", borderColor),
     ~width={px(tileSize + borderSize * 2)},
-    ~height={px(tileSize + borderSize * 2)},
+    ~height={isBanner ? px(tileSize * 2 + borderSize * 2) : px(tileSize + borderSize * 2)},
     (),
   )
 }
@@ -246,12 +251,14 @@ let makeTileStyle = (
   isSelected,
   isHover,
   tileSize,
+  isBanner,
 ) => {
   let (x, y, width, height) = frame.rectangle
+  let (x, y, width, height) = isBanner ? (x + 1, y + 1, 20, 20) : (x, y, width, height)
   let widthScale = Belt.Int.toFloat(tileSize) /. Belt.Int.toFloat(width)
   let heightScale = Belt.Int.toFloat(tileSize) /. Belt.Int.toFloat(height)
 
-  let baseStyle = makeTileBaseStyle(isSelected || isHover, tileSize)
+  let baseStyle = makeTileBaseStyle(isSelected || isHover, tileSize, isBanner)
 
   let backgroundStyle = ReactDOM.Style.make(
     ~backgroundImage=makeBackgroundImage(textureDef.url),
@@ -281,10 +288,17 @@ let getBlend = tint => {
 
 module TileButton = {
   @react.component
-  let make = (~textureDef, ~frame: TextureFrame.frame, ~isSelected, ~onClick) => {
+  let make = (~textureDef, ~frame: TextureFrame.frame, ~isBanner, ~isSelected, ~onClick) => {
     let (isHover, setIsHover) = React.useState(_ => false)
     let label = TextureFrame.makeFrameLabel(frame)
-    let tileStyle = makeTileStyle(textureDef, frame, isSelected, isHover, 32)
+    let tileStyle = makeTileStyle(
+      textureDef,
+      frame,
+      isSelected,
+      isHover,
+      isBanner ? 64 : 32,
+      isBanner,
+    )
     let buttonStyle = ReactDOM.Style.make(~margin=makeMargin(0, borderSize, borderSize, 0), ())
     let style = ReactDOM.Style.combine(tileStyle, buttonStyle)
     <button
@@ -331,6 +345,7 @@ module Preview = {
     ~rotation: Rotation.t,
     ~flip: Generator_Texture.flip,
     ~blend: string,
+    ~isBanner: bool,
   ) => {
     <div className="flex flex-col items-center" style={ReactDOM.Style.make(~width="148px", ())}>
       {switch frame {
@@ -343,7 +358,7 @@ module Preview = {
             frameCount: 0,
           }
           <>
-            <div style={makeTileBaseStyle(false, 128)} />
+            <div style={makeTileBaseStyle(false, 128, isBanner)} />
             <div className="text-center text-gray-500 p-2 pt-0">
               {TextureFrame.makeFrameLabel(frame)->React.string}
             </div>
@@ -352,7 +367,7 @@ module Preview = {
       | Some(frame) => {
           let rotationDegrees = Rotation.toDegrees(rotation)
           let flipTransform = Flip.toTransform(flip)
-          let tileStyle = makeTileStyle(textureDef, frame, false, false, 128)
+          let tileStyle = makeTileStyle(textureDef, frame, false, false, 128, isBanner)
           let transformStyle = ReactDOM.Style.make(
             ~transform=`rotate(${deg(rotationDegrees)}) ${flipTransform}`,
             ~backgroundColor=blend,
@@ -424,6 +439,14 @@ module FlipVerticalButton = {
     </button>
   }
 }
+/* Things that the banner generator has differently:
+ - Different tint selector, might start with a different tint but does not need the biome tints
+ - Crop grid to show the front face of the slate only
+ - Crop preview the same way
+ - Could have grid show tint as well
+ - Hide base pattern, have it as a different drop down
+ Resize the grid since there aren't as many patterns as blocks
+ */
 
 @react.component
 let make = (
@@ -431,6 +454,7 @@ let make = (
   ~frames: array<TextureFrame.frame>,
   ~onSelect: SelectedTexture.t => unit,
   ~singleStack: bool=false,
+  ~isBanner: bool=false,
 ) => {
   let (search, setSearch) = React.useState(() => None)
   let (selectedFrame, setSelectedFrame) = React.useState(() => None)
@@ -555,6 +579,7 @@ let make = (
             key=frame.id
             textureDef
             frame
+            isBanner
             isSelected
             onClick={_ => {
               onSelectClick(frame)
@@ -572,6 +597,7 @@ let make = (
           | None => "-"
           | Some(v) => v
           }}
+          isBanner
         />
         <div className="flex justify-around">
           {singleStack ? React.null : <RotationButton onClick={_ => onRotateClick()} />}
@@ -588,7 +614,7 @@ let make = (
       </div>
     </div>
     <div className="mb-2 mt-4">
-      <TintSelector onChange={onTintChange} />
+      <TintSelector isBanner onChange={onTintChange} />
     </div>
   </div>
 }
