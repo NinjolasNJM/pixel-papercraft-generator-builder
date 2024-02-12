@@ -2,7 +2,14 @@ module Face = TextureFace
 
 module Banner = {
   let drawBanner = (textureId: string, ox: int, oy: int) => {
-    Face.drawCuboid(textureId, Minecraft.Banner.banner.cloth, (ox, oy), (128, 256, 5), ())
+    let s = 5
+    Face.drawCuboid(
+      textureId,
+      Minecraft.Banner.banner.cloth,
+      (ox, oy - s),
+      (20 * s, 40 * s, 1 * s),
+      (),
+    )
     //Face.drawCuboid(textureId, Minecraft.Banner.banner.cloth, (ox, oy), (128, 256, 5), ())
   }
 
