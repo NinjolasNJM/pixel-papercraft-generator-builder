@@ -87,11 +87,63 @@ let hexToRGB = (hex: string) => {
   }
 }
 
-let multiplyColors = (r1: int, g1: int, b1: int, r2: int, g2: int, b2: int) => (
-  (Belt.Int.toFloat(r1) *. Belt.Int.toFloat(r2) /. 255.0)->Belt.Float.toInt,
-  (Belt.Int.toFloat(g1) *. Belt.Int.toFloat(g2) /. 255.0)->Belt.Float.toInt,
-  (Belt.Int.toFloat(b1) *. Belt.Int.toFloat(b2) /. 255.0)->Belt.Float.toInt,
-)
+let multiplyColors = (
+  r1: int,
+  g1: int,
+  b1: int,
+  a1: float,
+  r2: int,
+  g2: int,
+  b2: int,
+  a2: float,
+) => {
+  // normalize as floats between 0.0 and 1.0
+  let (nr1, ng1, nb1, na1) = (
+    Belt.Int.toFloat(r1) /. 255.0,
+    Belt.Int.toFloat(g1) /. 255.0,
+    Belt.Int.toFloat(b1) /. 255.0,
+    a1,
+  )
+  let (nr2, ng2, nb2, na2) = (
+    Belt.Int.toFloat(r2) /. 255.0,
+    Belt.Int.toFloat(g2) /. 255.0,
+    Belt.Int.toFloat(b2) /. 255.0,
+    a2,
+  )
+
+  Js.Console.log((nr1, ng1, nb1, na1))
+
+  // multiply normalized
+  let (nrm, ngm, nbm, nam) = (nr1 *. nr2, ng1 *. ng2, nb1 *. nb2, na1 *. na2)
+
+  Js.Console.log((nrm, ngm, nbm, nam))
+
+  // perform alpha correcting normalized
+  let (nr, ng, nb, na) = (
+    nrm *. na1 +. nr2 *. (1.0 -. na1),
+    ngm *. na1 +. ng2 *. (1.0 -. na1),
+    nbm *. na1 +. nb2 *. (1.0 -. na1),
+    nam,
+  )
+  Js.Console.log((nr, ng, nb, na))
+
+  let result = (
+    (nr *. 255.0)->Belt.Float.toInt,
+    (ng *. 255.0)->Belt.Float.toInt,
+    (nb *. 255.0)->Belt.Float.toInt,
+    na,
+  )
+
+  /* let result = (
+    (Belt.Int.toFloat(r1) *. Belt.Int.toFloat(r2) /. 255.0)->Belt.Float.toInt,
+    (Belt.Int.toFloat(g1) *. Belt.Int.toFloat(g2) /. 255.0)->Belt.Float.toInt,
+    (Belt.Int.toFloat(b1) *. Belt.Int.toFloat(b2) /. 255.0)->Belt.Float.toInt,
+    a1 +. a2 *. (255.0 -. a1),
+  )*/
+  // return (blendMultiply(base, blend) * opacity + base * (1.0 - opacity))
+  Js.Console.log(result)
+  result
+}
 
 let addColors = (r1: int, g1: int, b1: int, r2: int, g2: int, b2: int) => (
   (Belt.Int.toFloat(r1) +. Belt.Int.toFloat(r2) /. 255.0)->Belt.Float.toInt,
@@ -205,7 +257,6 @@ let drawNearestNeighbor = (
     | _ => None
     }
 
-    // Canvas API has a known issue with alpha mixing, and this is most prominent when using blend modes. I don't know of a fix for this yet.
     for y in 0 to sh - 1 {
       for x in 0 to sw - 1 {
         let tx = Belt.Int.toFloat(x) *. deltax
@@ -219,9 +270,9 @@ let drawNearestNeighbor = (
         let b = Belt.Option.getWithDefault(pix[i + 2], 0)
         let a = Belt.Int.toFloat(Belt.Option.getWithDefault(pix[i + 3], 0)) /. 255.0
 
-        let (r, g, b) = switch blend {
-        | None => (r, g, b)
-        | Some((r2, g2, b2)) => multiplyColors(r, g, b, r2, g2, b2)
+        let (r, g, b, a) = switch blend {
+        | None => (r, g, b, a)
+        | Some((r2, g2, b2)) => multiplyColors(r, g, b, a, r2, g2, b2, 1.0) //| Some((r2, g2, b2, a2)) => multiplyColors(r, g, b, a, r2, g2, b2, a2)
         }
         let (r, g, b) = switch replace {
         | None => (r, g, b)

@@ -19,6 +19,11 @@ let instructions = `
 
 let images: array<Generator.imageDef> = [
   {id: "Background", url: Generator.requireImage("./images/Background.png")},
+  {id: "Base", url: Generator.requireImage("./images/scutopia-base.png")},
+  {id: "Creeper", url: Generator.requireImage("./images/scutopia-creeper.png")},
+  {id: "Globe", url: Generator.requireImage("./images/scutopia-globe.png")},
+  {id: "Gradient", url: Generator.requireImage("./images/scutopia-gradient.png")},
+  {id: "Rhombus", url: Generator.requireImage("./images/scutopia-rhombus.png")},
 ]
 
 let textures: array<Generator.textureDef> = Js.Array.concat(
@@ -39,6 +44,36 @@ let textures: array<Generator.textureDef> = Js.Array.concat(
     {
       id: "Shield Base",
       url: Generator.requireImage("./textures/shield_base.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Base",
+      url: Generator.requireImage("./images/scutopia-base.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Creeper",
+      url: Generator.requireImage("./images/scutopia-creeper.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Globe",
+      url: Generator.requireImage("./images/scutopia-globe.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Gradient",
+      url: Generator.requireImage("./images/scutopia-gradient.png"),
+      standardWidth: 64,
+      standardHeight: 64,
+    },
+    {
+      id: "Rhombus",
+      url: Generator.requireImage("./images/scutopia-rhombus.png"),
       standardWidth: 64,
       standardHeight: 64,
     },
@@ -101,6 +136,12 @@ let script = () => {
 
     let ox = 100
     let oy = 12 + 400 * (i - 1)
+
+    Generator.drawTexture("Base", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
+    Generator.drawTexture("Gradient", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
+    Generator.drawTexture("Creeper", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
+    Generator.drawTexture("Rhombus", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
+    Generator.drawTexture("Globe", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
 
     switch bannerType {
     | "Banner" => Types.Banner.draw("SelectedTextureFrames", ox, oy, showFolds)
