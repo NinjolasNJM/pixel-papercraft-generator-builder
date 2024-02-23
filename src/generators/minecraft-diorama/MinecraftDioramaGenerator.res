@@ -89,7 +89,10 @@ let script = () => {
     />
   })
 
-  let editMode = Generator.defineAndGetSelectInput("Edit Mode", ["Blocks", "Tabs", "Folds"])
+  let editMode = Generator.defineAndGetSelectInput(
+    "Edit Mode",
+    ["Blocks", "Tabs", "Folds", "Scale"],
+  )
 
   let dioramaSize = Generator.defineAndGetSelectInput(
     "Diorama Size",
