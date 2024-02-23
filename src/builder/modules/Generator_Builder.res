@@ -880,7 +880,7 @@ let drawText = (model: Model.t, text: string, position: position, size: int) => 
 
       page.canvasWithContext.context->Context2d.fillText(text, x, y)
       page.canvasWithContext.context->Context2d.restore
-      page.canvasWithContext.context->addAliasingFilter
+      page.canvasWithContext.context->Context2d.filter("none")
     }
   }
   model

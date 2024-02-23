@@ -97,24 +97,29 @@ let multiplyColors = (
   b2: int,
   a2: float,
 ) => {
-  // normalize as floats between 0.0 and 1.0
-  let (nr1, ng1, nb1, na1) = (
-    Belt.Int.toFloat(r1) /. 255.0,
-    Belt.Int.toFloat(g1) /. 255.0,
-    Belt.Int.toFloat(b1) /. 255.0,
-    a1,
-  )
-  let (nr2, ng2, nb2, na2) = (
-    Belt.Int.toFloat(r2) /. 255.0,
-    Belt.Int.toFloat(g2) /. 255.0,
-    Belt.Int.toFloat(b2) /. 255.0,
-    a2,
-  )
+  let clamp = value => {
+    value < 0 ? 0 : value > 255 ? 255 : value
+  }
+  let lerp = (begin, end) => {
+    clamp(begin + (end - begin))
+  }
 
-  Js.Console.log((nr1, ng1, nb1, na1))
+  Js.Console.log((r1, g1, b1, a1))
+  Js.Console.log((r2, g2, b2, a2))
+
+  // normalize as floats between 0.0 and 1.0
+  let (nr1, ng1, nb1, na1) = (Belt.Int.toFloat(r1), Belt.Int.toFloat(g1), Belt.Int.toFloat(b1), a1)
+  let (nr2, ng2, nb2, na2) = (Belt.Int.toFloat(r2), Belt.Int.toFloat(g2), Belt.Int.toFloat(b2), a2)
+
+  //Js.Console.log((nr1, ng1, nb1, na1))
 
   // multiply normalized
-  let (nrm, ngm, nbm, nam) = (nr1 *. nr2, ng1 *. ng2, nb1 *. nb2, na1 *. na2)
+  let (nrm, ngm, nbm, nam) = (
+    nr1 *. nr2 /. 255.0,
+    ng1 *. ng2 /. 255.0,
+    nb1 *. nb2 /. 255.0,
+    na1 *. na2,
+  )
 
   Js.Console.log((nrm, ngm, nbm, nam))
 
@@ -127,12 +132,16 @@ let multiplyColors = (
   )
   Js.Console.log((nr, ng, nb, na))
 
-  let result = (
-    (nr *. 255.0)->Belt.Float.toInt,
-    (ng *. 255.0)->Belt.Float.toInt,
-    (nb *. 255.0)->Belt.Float.toInt,
-    na,
+  let (ir, ig, ib, ia) = (
+    lerp(r1, r2 * r1 / 255),
+    lerp(g1, g2 * g1 / 255),
+    lerp(b1, b2 * b1 / 255),
+    a2 *. a1,
   )
+  let result = (ir, ig, ib, ia)
+
+  //let result = (nr->Belt.Float.toInt, ng->Belt.Float.toInt, nb->Belt.Float.toInt, na)
+  //let result = (nrm->Belt.Float.toInt, ngm->Belt.Float.toInt, nbm->Belt.Float.toInt, nam)
 
   /* let result = (
     (Belt.Int.toFloat(r1) *. Belt.Int.toFloat(r2) /. 255.0)->Belt.Float.toInt,

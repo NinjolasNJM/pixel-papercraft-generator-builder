@@ -143,6 +143,10 @@ let script = () => {
     Generator.drawTexture("Rhombus", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
     Generator.drawTexture("Globe", (0, 0, 64, 64), (ox + 64 * 4, oy, 64 * 5, 64 * 5), ())
 
+    Generator.drawTexture("Gradient", (0, 0, 64, 64), (ox, oy + 64 * 5, 64 * 5, 64 * 5), ())
+
+    //Types.Banner.draw("Banner Base", ox, oy, showFolds)
+
     switch bannerType {
     | "Banner" => Types.Banner.draw("SelectedTextureFrames", ox, oy, showFolds)
     | _ => ()

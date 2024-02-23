@@ -21,6 +21,7 @@
   "dependencies": {
     "har-validator": "^5.1.5",
     "jspdf": "2.5.1",
+    "latest": "^0.2.0",
     "marked": "4.2.12",
     "nbt": "^0.8.1",
     "print-html-element": "0.5.1",

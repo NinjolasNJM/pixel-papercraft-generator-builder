@@ -87,6 +87,18 @@ let textures: array<Generator.textureDef> = [
     standardWidth: 16,
     standardHeight: 16,
   },
+  {
+    id: "Gradient",
+    url: requireTexture("gradient.png"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
+  {
+    id: "Scutopia Gradient",
+    url: requireTexture("wiki-gradient.png"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
   /* {
     id: "WebTexture",
     url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAGyUlEQVR4Xu1az29UVRhtUKakQKgCCZQCUaw12o7YhQINBBDxR0ICJIhSDLJxQaAQokkNEhAapwobFqXGf8CEREOMccXGgGLQhX+BG1diE0VxwYbPdy7zPb533n133uvM9Bec5OT++t6de8699703c6elpQbOt8+V358qOSLP5Q+2l4Pk/mYcIPRc+yNOMFKbRwqRg5uf93LWGGDFWxOsAa2trQnu7O6aHQacb0+LV6Ity4BmrIDz7Y8KyPVNxQNvwES3QDMMmBLkvQkO734pTsFZ8xTAMudVoGXdAiFyf9MOViDyobLPgFB8njKPZ9JRU+CyZXFZ7oqjbbfxfD3ytv91q+Y6TjsDgowMSNXlactJHo8F+ncm4nMC5OsKoXtFm3R3LJTelQulZ9VCQfnpFfNdvvzE43Lp5GG5fGbQpV+dOipjxwfku8pxGTvyuiNiEItrcC3y6At9orxm+Twpr14kz61c4PJIQa3j8Uw6nAFVdnUskCeXtcnwWxtk7OA22dC92Im/c+eO9K9ZJJc/OuzEI486mIIYxOIaXIs+bJ9WbFcH2ttcOWRAZ2enWPb19TlmlZXcTy7Eg41mrGs5Zv4xObNzrVx4Z7N8sm99JO4V+frEu/LN6ePxO/4vlUH5cnC7nIoed4hBLK7BtehDZ18N8IkPGTCp0GWPZXtga1k+P7JDRg++HD/Lz+3f6gRW3tiU4Gf7N8npXetdDGJxDa5FH24LVLeDiofgZ6r51e3zp48B+uKioseObL8n+O2N8v6rZTm2rUeObn1WTu9e5/jhjj6Xfry3X07seNHFIPaL6DpcO3rotXtptT81UleAUo3j8Uw55r+5SCzn/H3Xcd+v113K8Yxbf2S/HKFt5GxrkNwf46fvS64f8PafJTm0ea3seqErTjm+MHwGDA0NycjIiDOB4xkYGP8uoGyEASpeOSkGQDxMyLsCWHizDMBqsOKRcnxhsAGYdV3+eQ3gpd+sLdAQA1iwj21b0nUx0bY3TTwh8KhECrp6xCopHvvZUuNv/FBK8OfrJflv/B4Rh7IlbxHWm4IKtCJZMLcnGA30xtWSI4tLia/W3/ix5GgN+OdmKUGtP3t2Xrw6YIA1SUV/GrWBasBfVeY2wIq09LWlDAoYoAMMGmDqE7Ovsdfubxs2QE2oy4DMmTVCOSZhiBksL/GEAVm01zCrBqhA3gJZK6DQFsBLjyXe75UXjg3I8N6Njr52MFNMVP73ZsAAax4LN33YsWEc/Pl2bL7xsd4UtOO4k0h0wgRqV2M0LlMEG2DqE3nftabNZ4Ado298DTfAxvAHpGbUCIB4mJBo57wlGxPRjo0NcBPhMcBOEOtNgQXaztWAxDag9pQIw9wG8Oyb9tASZwN8W4T1psAG2M6tAfEg2ADPrNVcAUxuM0ZU9vTLxQNb4vTSyfdiXjw64OqUiLHtIOtNQd/02GFrAGjfCG0+JcYQ4nMZYIVTrBXHBjgTjAHaDmM0Zb0p6CuuJb/+hrh08VLH3t7emFrnY54YjUOaZYCK9K2QQgaMX1kp9ZAHzkLzCs4iz7AVB6rwCa+Ah8gBOdEi8lvLg+smxMMErn+I2QL9YjOR8pLFS9xNDmlPT4+7cWkcA20ao2m5nH2Ain65rilo2xMJ2mMEFij7DPANXJ8EPgPUtIHo0Qsin9VPUxASWKucZYBdCbYuy4A5tyTBSTWg0cDAIWL8yipH5ENi1AiNt6tixkJnUg3gdgYbwO0zDlZ8HgMw42rAjJ993dN2C4RE6ZK3BsyYVaA3QJvyDczWhW6EbEDItGmDLAM4rpYBiFEDkDcG1MvmwmcAxyiyDNB2awDgMxKQCKOjo962KQEG6hvstW/bBOT6rPi8gAEA108ZMJMg12cZkBU/K8CHK/oLk/6CxPEMnPbYw8+Wq1el5fbt++lUoMjXYTYA4iuVSqHj9cTJTgMMGL/SKSDX50aRH0TYAIiGeJiQxwB7/O0MsOKRTgB1G1AEPgN0G+T5hwmf/zfCgJoIfd+vVVahKLP4PNQDTiXuAfbwk/8fkNoijUDo626tsopnA2zZ124NsKe7aoISovV4HP8VgOhCx995EBJYq6zifIJ9bWwQG8Dn/9YAHJU3xYB6wIJ8YrOM8RkA8haI/x9QNaDhW6Ae2Bsc3/DylOMzx4zDzdDhaK7Dz2aDBRUtW/FWoJ5NzggD6iEbwKfPWf8PyH3+32xARGiGa5Xt2b41IF4JZvZ9W4THM+lgQUXL8UuOksv8IsRtUw0VkyXQlrUuYQAL8tEKZzOAKJ941S1argcq0pINCNErimd6OhvA/xcoypRQJQtvkgH/Ax5VP6FHBolsAAAAAElFTkSuQmCC",
@@ -793,10 +805,10 @@ let drawTextureImagePageColorTestPage = () => {
   let textureColor22 = getTexturePixelColor("TextureColors64x64", 2 * pixelSize, 2 * pixelSize)
   let textureColor33 = getTexturePixelColor("TextureColors64x64", 3 * pixelSize, 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(textureColor00, "#000000ff"), (20, 80), 1)
-  Generator.drawText(makeAssertText(textureColor11, "#777777ff"), (20, 120), 1)
-  Generator.drawText(makeAssertText(textureColor22, "#ff000080"), (20, 160), 1)
-  Generator.drawText(makeAssertText(textureColor33, "#ffffff80"), (20, 200), 1)
+  Generator.drawText(makeAssertText(textureColor00, "#000000ff"), (20, 80), 2)
+  Generator.drawText(makeAssertText(textureColor11, "#777777ff"), (20, 120), 2)
+  Generator.drawText(makeAssertText(textureColor22, "#ff000080"), (20, 160), 2)
+  Generator.drawText(makeAssertText(textureColor33, "#ffffff80"), (20, 200), 2)
 
   Generator.drawText("Image Color Test", (20, 260), 3)
   Generator.drawImage("ImageColors64x64", (500, 240))
@@ -806,10 +818,10 @@ let drawTextureImagePageColorTestPage = () => {
   let imageColor22 = getImagePixelColor("ImageColors64x64", 2 * pixelSize, 2 * pixelSize)
   let imageColor33 = getImagePixelColor("ImageColors64x64", 3 * pixelSize, 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(imageColor00, "#000000ff"), (20, 300), 1)
-  Generator.drawText(makeAssertText(imageColor11, "#777777ff"), (20, 340), 1)
-  Generator.drawText(makeAssertText(imageColor22, "#ff000080"), (20, 380), 1)
-  Generator.drawText(makeAssertText(imageColor33, "#ffffff80"), (20, 420), 1)
+  Generator.drawText(makeAssertText(imageColor00, "#000000ff"), (20, 300), 2)
+  Generator.drawText(makeAssertText(imageColor11, "#777777ff"), (20, 340), 2)
+  Generator.drawText(makeAssertText(imageColor22, "#ff000080"), (20, 380), 2)
+  Generator.drawText(makeAssertText(imageColor33, "#ffffff80"), (20, 420), 2)
 
   Generator.drawText("Page Color Test", (20, 480), 3)
   let imageX = 500
@@ -822,10 +834,112 @@ let drawTextureImagePageColorTestPage = () => {
   let pageColor22 = getPagePixelColor(imageX + 2 * pixelSize, imageY + 2 * pixelSize)
   let pageColor33 = getPagePixelColor(imageX + 3 * pixelSize, imageY + 3 * pixelSize)
 
-  Generator.drawText(makeAssertText(pageColor00, "#000000ff"), (20, 520), 1)
-  Generator.drawText(makeAssertText(pageColor11, "#777777ff"), (20, 560), 1)
-  Generator.drawText(makeAssertText(pageColor22, "#ff7f7fff"), (20, 600), 1) // ff000080 + ffffffff === ff7f7fff
-  Generator.drawText(makeAssertText(pageColor33, "#ffffffff"), (20, 640), 1) // ffffff80 + ffffffff === ffffffff
+  Generator.drawText(makeAssertText(pageColor00, "#000000ff"), (20, 520), 2)
+  Generator.drawText(makeAssertText(pageColor11, "#777777ff"), (20, 560), 2)
+  Generator.drawText(makeAssertText(pageColor22, "#ff7f7fff"), (20, 600), 2) // ff000080 + ffffffff === ff7f7fff
+  Generator.drawText(makeAssertText(pageColor33, "#ffffffff"), (20, 640), 2) // ffffff80 + ffffffff === ffffffff
+}
+
+let drawMultiplyTestPage = () => {
+  Generator.usePage("Multiply Test")
+
+  let makeAssertText = (actual, expected, texture) => {
+    let label = `Original: ${texture}; Preblended: ${actual}; Multiplied: ${expected};`
+    let result = actual === expected ? "SUCCESS" : "FAIL"
+    `${label} Result: ${result}`
+  }
+
+  let getTexturePixelColor = (id, x, y) => {
+    switch Generator.getTexturePixelColor(id, x, y) {
+    | None => "Unknown"
+    | Some(color) => rgbaToHex(color)
+    }
+  }
+
+  let getPagePixelColor = (x, y) => {
+    switch Generator.getCurrentPagePixelColor(x, y) {
+    | None => "Unknown"
+    | Some(color) => rgbaToHex(color)
+    }
+  }
+
+  let multiplyColors = (color1, color2) => {
+    let (r1, g1, b1) = switch Generator_Texture.hexToRGB(color1) {
+    | None => (0, 0, 0)
+    | Some(color) => color
+    }
+
+    let c = color2
+    Js.Console.log(c)
+    let (r, g, b, a) = (r1, g1, b1, 255.0) //Generator_Texture.multiplyColors(r1, g1, b1, 255.0, r2, g2, b2, 255.0)
+    rgbaToHex((r, g, b, Belt.Float.toInt(a)))
+  }
+
+  let pixelSize = 5
+  let (imageX, imageY) = (360, 20)
+  //Generator.fillRect((0, 0, 0, 0), "#ffffff")
+  //Generator.fillBackgroundColor("#ffffff")
+  Generator.drawText("Preblended Test", (20, 40), 3) // 24
+  Generator.drawTexture(
+    "Scutopia Gradient",
+    (0, 0, 64, 64),
+    (imageX, imageY, 64 * pixelSize, 64 * pixelSize),
+    (),
+  )
+  let tx = 2
+  let preBlendColor00 = getPagePixelColor(imageX + tx * pixelSize, imageY + 1 * pixelSize)
+  let preBlendColor11 = getPagePixelColor(imageX + tx * pixelSize, imageY + 10 * pixelSize)
+  let preBlendColor22 = getPagePixelColor(imageX + tx * pixelSize, imageY + 20 * pixelSize)
+  let preBlendColor33 = getPagePixelColor(imageX + tx * pixelSize, imageY + 30 * pixelSize)
+  let (imageX, imageY) = (360, 240)
+  Generator.drawTexture(
+    "Gradient",
+    (0, 0, 64, 64),
+    (imageX, imageY, 64 * pixelSize, 64 * pixelSize),
+    ~blend=#MultiplyHex("#169C9C"),
+    (),
+  )
+  let multiplyColor00 = getPagePixelColor(imageX + tx * pixelSize, imageY + 1 * pixelSize)
+  let multiplyColor11 = getPagePixelColor(imageX + tx * pixelSize, imageY + 10 * pixelSize)
+  let multiplyColor22 = getPagePixelColor(imageX + tx * pixelSize, imageY + 20 * pixelSize)
+  let multiplyColor33 = getPagePixelColor(imageX + tx * pixelSize, imageY + 30 * pixelSize)
+
+  let textureColor00 = getTexturePixelColor("Gradient", tx, 1)
+  let textureColor11 = getTexturePixelColor("Gradient", tx, 10)
+  let textureColor22 = getTexturePixelColor("Gradient", tx, 20)
+  let textureColor33 = getTexturePixelColor("Gradient", tx, 30)
+
+  Generator.drawText(makeAssertText(preBlendColor00, multiplyColor00, textureColor00), (20, 520), 1)
+  Generator.drawText(makeAssertText(preBlendColor11, multiplyColor11, textureColor11), (20, 560), 1)
+  Generator.drawText(makeAssertText(preBlendColor22, multiplyColor22, textureColor22), (20, 600), 1)
+  Generator.drawText(makeAssertText(preBlendColor33, multiplyColor33, textureColor33), (20, 640), 1)
+
+  Generator.drawText("Color: " ++ multiplyColors(textureColor00, "#169c9c"), (20, 540), 1)
+  Generator.drawText(makeAssertText(preBlendColor11, multiplyColor11, textureColor11), (20, 580), 1)
+  Generator.drawText(makeAssertText(preBlendColor22, multiplyColor22, textureColor22), (20, 620), 1)
+  Generator.drawText(makeAssertText(preBlendColor33, multiplyColor33, textureColor33), (20, 660), 1)
+
+  Generator.fillRect(
+    (imageX + tx * pixelSize, imageY + 1 * pixelSize, pixelSize, pixelSize),
+    "#A71810",
+  )
+  Generator.fillRect(
+    (imageX + tx * pixelSize, imageY + 10 * pixelSize, pixelSize, pixelSize),
+    "#A71810",
+  )
+  Generator.fillRect(
+    (imageX + tx * pixelSize, imageY + 20 * pixelSize, pixelSize, pixelSize),
+    "#A71810",
+  )
+  Generator.fillRect(
+    (imageX + tx * pixelSize, imageY + 30 * pixelSize, pixelSize, pixelSize),
+    "#A71810",
+  )
+
+  Js.Console.log(makeAssertText(preBlendColor00, multiplyColor00, textureColor00))
+  Js.Console.log(makeAssertText(preBlendColor11, multiplyColor11, textureColor11))
+  Js.Console.log(makeAssertText(preBlendColor22, multiplyColor22, textureColor22))
+  Js.Console.log(makeAssertText(preBlendColor33, multiplyColor33, textureColor33))
 }
 
 let drawButtonInputTest = () => {
@@ -1169,8 +1283,10 @@ let drawFaceTabsTestPage = () => {
 }
 
 let script = () => {
+  drawMultiplyTestPage()
+  drawTextureImagePageColorTestPage()
   //drawWebTexturePage()
-  drawLandscapeTestPage()
+  /* drawLandscapeTestPage()
   drawTripleTestPage()
   drawTextInput()
   drawTextInputPage()
@@ -1182,13 +1298,12 @@ let script = () => {
   drawCuboidTestPage()
   drawFoldLinesTestPage()
   drawLinesTestPage()
-  drawTextureImagePageColorTestPage()
   drawButtonInputTest()
   drawTextureRotation64Test()
   drawTextureRotation256Test()
   drawTextureCropRotationTest()
   drawTextureTintTest()
-  drawTextureCropTest()
+  drawTextureCropTest() */
 }
 
 let generator: Generator.generatorDef = {

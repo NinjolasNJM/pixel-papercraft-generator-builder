@@ -14,7 +14,7 @@ module Banner = {
   }
 
   let draw = (bannerId: string, ox: int, oy: int, showFolds: bool) => {
-    drawBanner(bannerId, ox, oy)
+    drawBanner(bannerId, showFolds ? ox : ox + 0, oy)
 
     //Generator.drawImage("Tabs-Banner", (ox - 32, oy - 1))
 
