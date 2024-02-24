@@ -84,10 +84,13 @@ module Block = {
   )) => {
     let regions = Regions.make(ox, oy, width, height, cols, rows)
 
+    let initialTexture = `{"textureDefId":"minecraft-1.20.4-blocks","frame":{"id":"debug2-0","name":"debug2","rectangle":[128,144,16,16],"frameIndex":0,"frameCount":1},"rotation":0,"flip":"None","blend":"None"}`
+
     Belt.Array.forEach(regions, face => {
       let (faceName, faceRegion) = face
       if editMode == "Blocks" {
         Face.defineInputRegion(faceName, faceRegion)
+        Face.addTexture(faceName, initialTexture)
       }
       Face.draw(faceName, (0, 0, 16, 16), faceRegion, ())
     })

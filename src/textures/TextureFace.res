@@ -29,6 +29,25 @@ let defineInputRegion = (faceId, region) => {
   })
 }
 
+let addTexture = (faceId, texture) => {
+  let textureFrame = TexturePicker.SelectedTexture.decode(texture)
+  let selectedTextureFrames = TexturePicker.SelectedTexture.decodeArray(
+    Generator.getStringInputValue(faceId),
+  )
+  switch textureFrame {
+  | Some(textureFrame) => {
+      //if textureDefId = "" erase
+      let newTextureFrames = Belt.Array.concat(selectedTextureFrames, [textureFrame])
+
+      Generator.setStringInputValue(
+        faceId,
+        TexturePicker.SelectedTexture.encodeArray(newTextureFrames),
+      )
+    }
+  | None => ()
+  }
+}
+
 let drawTexture = (
   face: TexturePicker.SelectedTexture.t,
   (sx, sy, sw, sh),
