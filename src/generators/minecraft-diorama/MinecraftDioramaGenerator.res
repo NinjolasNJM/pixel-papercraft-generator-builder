@@ -116,9 +116,13 @@ let script = () => {
   let size = 16 * dioramaWidth / 100 //Belt.Float.toInt(16.0 *. Belt.Int.toFloat(dioramaWidth) /. 100.0)
   //let height = 16 * dioramaHeight / 100
 
-  let options = (ox, oy, size, bx / size, by / size, editMode)
+  let (cw, rh) = (Belt.Array.make(bx / size, 100), Belt.Array.make(by / size, 100))
+
+  let options = ref((ox, oy, size, bx / size, by / size, cw, rh, editMode))
 
   Generator.usePage(~isLandscape=pageFormat, "Page")
+  // Scale
+  Types.Scale.draw(options)
 
   // Blocks
   Types.Block.draw(options)
@@ -128,9 +132,6 @@ let script = () => {
 
   // Folds
   Types.Folds.draw(options)
-
-  // Scale
-  Types.Scale.draw(options)
 
   /* How it will work: 
 Have diorama size as is, renamed to base size
