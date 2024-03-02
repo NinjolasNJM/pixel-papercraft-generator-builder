@@ -73,7 +73,7 @@ Define region to be at said x, y, w, h.
       Belt.Float.toInt(result)
     }
 
-    Js.Console.log(rh)
+    //Js.Console.log(rh)
     /* cw, rh need to: 
           detect zeroes and missings and set them to 100
      have percentOf done so that there is the actual width or height of each 
@@ -82,15 +82,15 @@ Define region to be at said x, y, w, h.
     let tw = Belt.Array.map(cw, x => percentOf(size, x))
     let th = Belt.Array.map(rh, x => percentOf(size, x))
 
-    Js.Console.log(th)
+    //Js.Console.log(th)
 
     let tx = Belt.Array.mapWithIndex(tw, (i, x) =>
-      Belt.Array.reduce(Belt.Array.slice(tw, ~offset=0, ~len=i - 1), 0, (total, x) => total + x)
+      Belt.Array.reduce(Belt.Array.slice(tw, ~offset=0, ~len=i), 0, (total, x) => total + x)
     )
     let ty = Belt.Array.mapWithIndex(th, (i, y) =>
-      Belt.Array.reduce(Belt.Array.slice(th, ~offset=0, ~len=i - 1), 0, (total, y) => total + y)
+      Belt.Array.reduce(Belt.Array.slice(th, ~offset=0, ~len=i), 0, (total, y) => total + y)
     )
-    Js.Console.log(ty)
+    //Js.Console.log(ty)
 
     let regions = ref([])
     for c in 0 to cols - 1 {
@@ -346,8 +346,13 @@ module Scale = {
       Generator.defineAndGetRangeInput("Row Height", {min: 100, max: 1600, value: 800, step: 50})
     }
 
-    let cw = [250, 100, 200, 100, 100]
-    let rh = [100, 50, 100, 150, 100]
+    let cw = Belt.Array.make(cols, 100)
+    let rh = Belt.Array.make(rows, 100)
+
+    // test stuff
+    //let cw = [250, 100, 200, 100, 100]
+    //let rh = [100, 50, 100, 150, 100]
+    let _ = Belt.Array.set(rh, 3, 50)
 
     let regions = Region.make(ox, oy, size, cols, rows, cw, rh)
 

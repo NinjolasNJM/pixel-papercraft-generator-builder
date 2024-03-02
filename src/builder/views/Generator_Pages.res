@@ -49,6 +49,7 @@ module RegionInputs = {
             (),
           )
           <div
+            //title=callback
             key={Js.Int.toString(i)}
             className="absolute border-4 border-transparent hover:border-blue-500"
             style={style}
