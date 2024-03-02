@@ -56,9 +56,65 @@ module Fold = {
   }
 }
 
+module Region = {
+  let make = (ox, oy, size, cols, rows, cw: array<int>, rh: array<int>): array<face> => {
+    /*
+cw, rh have percentages of the base size
+for each in the number of columns and rows:
+Find the width or height of the tile.
+Add together or find the x and y it should be at.
+Define region to be at said x, y, w, h.
+
+
+ */
+    let percentOf = (value, percent) => {
+      let p = Belt.Int.toFloat(percent) == 0.0 ? 100.0 : Belt.Int.toFloat(percent)
+      let result = Belt.Int.toFloat(value) *. p /. 100.0
+      Belt.Float.toInt(result)
+    }
+
+    Js.Console.log(rh)
+    /* cw, rh need to: 
+          detect zeroes and missings and set them to 100
+     have percentOf done so that there is the actual width or height of each 
+     have a tx and ty so that there is easy calculation of the x and y of each.
+ */
+    let tw = Belt.Array.map(cw, x => percentOf(size, x))
+    let th = Belt.Array.map(rh, x => percentOf(size, x))
+
+    Js.Console.log(th)
+
+    let tx = Belt.Array.mapWithIndex(tw, (i, x) =>
+      Belt.Array.reduce(Belt.Array.slice(tw, ~offset=0, ~len=i - 1), 0, (total, x) => total + x)
+    )
+    let ty = Belt.Array.mapWithIndex(th, (i, y) =>
+      Belt.Array.reduce(Belt.Array.slice(th, ~offset=0, ~len=i - 1), 0, (total, y) => total + y)
+    )
+    Js.Console.log(ty)
+
+    let regions = ref([])
+    for c in 0 to cols - 1 {
+      for r in 0 to rows - 1 {
+        let face = (
+          "BlockFace" ++ Belt.Int.toString(c) ++ " " ++ Belt.Int.toString(r),
+          (
+            ox + Belt.Option.getWithDefault(tx[c], 128),
+            oy + Belt.Option.getWithDefault(ty[r], 128),
+            Belt.Option.getWithDefault(tw[c], 128),
+            Belt.Option.getWithDefault(th[r], 128),
+          ),
+        )
+        regions := Belt.Array.concat(regions.contents, [face])
+      }
+    }
+    regions.contents
+  }
+}
+
 module Block = {
   module Regions = {
-    let make = (ox, oy, width, height, cols, rows): array<face> => {
+    let make = (ox, oy, size, cols, rows): array<face> => {
+      let (width, height) = (size, size)
       let regions = ref([])
       for c in 0 to cols - 1 {
         for r in 0 to rows - 1 {
@@ -73,16 +129,8 @@ module Block = {
     }
   }
 
-  let draw = ((
-    ox: int,
-    oy: int,
-    width: int,
-    height: int,
-    cols: int,
-    rows: int,
-    editMode: string,
-  )) => {
-    let regions = Regions.make(ox, oy, width, height, cols, rows)
+  let draw = ((ox: int, oy: int, size: int, cols: int, rows: int, editMode: string)) => {
+    let regions = Regions.make(ox, oy, size, cols, rows)
 
     let initialTexture = `{"textureDefId":"minecraft-1.20.4-blocks","frame":{"id":"debug2-0","name":"debug2","rectangle":[128,144,16,16],"frameIndex":0,"frameCount":1},"rotation":0,"flip":"None","blend":"None"}`
 
@@ -99,7 +147,8 @@ module Block = {
 
 module Tabs = {
   module Regions = {
-    let make = (ox, oy, width, height, cols, rows): array<tab> => {
+    let make = (ox, oy, size, cols, rows): array<tab> => {
+      let (width, height) = (size, size)
       let regions = ref([])
       let makeNorth = (c, r) => {
         (
@@ -169,16 +218,8 @@ module Tabs = {
     Belt.Int.toString(t)
   }
 
-  let draw = ((
-    ox: int,
-    oy: int,
-    width: int,
-    height: int,
-    cols: int,
-    rows: int,
-    editMode: string,
-  )) => {
-    let regions = Regions.make(ox, oy, width, height, cols, rows)
+  let draw = ((ox: int, oy: int, size: int, cols: int, rows: int, editMode: string)) => {
+    let regions = Regions.make(ox, oy, size, cols, rows)
 
     Belt.Array.forEach(regions, tab => {
       let (tabName, tabRegion, tabRot) = tab
@@ -195,7 +236,8 @@ module Tabs = {
 }
 module Folds = {
   module Regions = {
-    let make = (ox, oy, width, height, cols, rows): array<fold> => {
+    let make = (ox, oy, size, cols, rows): array<fold> => {
+      let (width, height) = (size, size)
       let regions = ref([])
       let makeNorth = (c, r) => {
         (
@@ -260,16 +302,8 @@ module Folds = {
     }
   }
 
-  let draw = ((
-    ox: int,
-    oy: int,
-    width: int,
-    height: int,
-    cols: int,
-    rows: int,
-    editMode: string,
-  )) => {
-    let regions = Regions.make(ox, oy, width, height, cols, rows)
+  let draw = ((ox: int, oy: int, size: int, cols: int, rows: int, editMode: string)) => {
+    let regions = Regions.make(ox, oy, size, cols, rows)
 
     Belt.Array.forEach(regions, fold => {
       let (foldName, foldRegion, foldRot) = fold
@@ -282,6 +316,47 @@ module Folds = {
       if foldValue {
         Fold.draw(foldRegion, foldRot)
       }
+    })
+  }
+}
+
+module Scale = {
+  module Regions = {
+    let make = (ox, oy, size, cols, rows): array<face> => {
+      let (width, height) = (size, size)
+      let regions = ref([])
+      for c in 0 to cols - 1 {
+        for r in 0 to rows - 1 {
+          let face = (
+            "ScaleFace" ++ Belt.Int.toString(c) ++ " " ++ Belt.Int.toString(r),
+            (ox + width * c, oy + height * r, width, height),
+          )
+          regions := Belt.Array.concat(regions.contents, [face])
+        }
+      }
+      regions.contents
+    }
+  }
+
+  let draw = ((ox: int, oy: int, size: int, cols: int, rows: int, editMode: string)) => {
+    let columnWidth = {
+      Generator.defineAndGetRangeInput("Column Width", {min: 100, max: 1600, value: 800, step: 50})
+    }
+    let rowHeight = {
+      Generator.defineAndGetRangeInput("Row Height", {min: 100, max: 1600, value: 800, step: 50})
+    }
+
+    let cw = [250, 100, 200, 100, 100]
+    let rh = [100, 50, 100, 150, 100]
+
+    let regions = Region.make(ox, oy, size, cols, rows, cw, rh)
+
+    Belt.Array.forEach(regions, face => {
+      let (faceName, faceRegion) = face
+      if editMode == "Scale" {
+        Face.defineInputRegion(faceName, faceRegion)
+      }
+      Face.draw(faceName, (0, 0, 16, 16), faceRegion, ())
     })
   }
 }
