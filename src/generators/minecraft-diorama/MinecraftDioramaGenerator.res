@@ -110,19 +110,9 @@ let script = () => {
 
   let pageFormat = Generator.defineAndGetBooleanInput("Landscape Mode", false)
 
-  let ox = pageFormat ? 37 : 42
-  let oy = 41
-  let (bx, by) = pageFormat ? (768, 512) : (512, 768)
-  let size = 16 * dioramaWidth / 100 //Belt.Float.toInt(16.0 *. Belt.Int.toFloat(dioramaWidth) /. 100.0)
-  //let height = 16 * dioramaHeight / 100
-
-  let (cw, rh) = (Belt.Array.make(bx / size, 100), Belt.Array.make(by / size, 100))
-
-  let options = ref((ox, oy, size, bx / size, by / size, cw, rh, editMode))
-
   Generator.usePage(~isLandscape=pageFormat, "Page")
   // Scale
-  Types.Scale.draw(options)
+  let options = ref(Types.Scale.draw(dioramaWidth, pageFormat, editMode))
 
   // Blocks
   Types.Block.draw(options)
@@ -132,6 +122,13 @@ let script = () => {
 
   // Folds
   Types.Folds.draw(options)
+
+  /*
+   options has a default setting.
+   Options is editable by scale.
+   The edited options is accessible by the other draw functions, and by scale. 
+   When options is updated, all draw functions are updated.
+ */
 
   /* How it will work: 
 Have diorama size as is, renamed to base size

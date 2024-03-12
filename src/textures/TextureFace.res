@@ -10,7 +10,6 @@ let defineInputRegion = (faceId, region) => {
     let selectedTextureFrames = TexturePicker.SelectedTexture.decodeArray(
       Generator.getStringInputValue(faceId),
     )
-    Js.Console.log(faceId)
     switch selectedTextureFrame {
     | Some(selectedTextureFrame) => {
         //if textureDefId = "" erase
