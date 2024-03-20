@@ -51,18 +51,58 @@ let script = () => {
 
   Generator.drawImage("Background", (0, 0))
 
+  // Top Half of Chest
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: ?, y: ?, w: ?, h: ?},
+    {x: ? + ox, y: ? + oy, w: ?, h: ?},
+    (),
+  ) 
+  
   // Right
     Generator.drawTextureLegacy(
     "Chest",
     {x: 281, y: 140, w: 139, h: 49},
-    {x: 0 + ox, y: 64 + oy, w: 64, h: 64},
+    {x: 147 + ox, y: 360 + oy, w: 76, h: 27},
     (),
   ) 
   
-  // Back
+   // Back
     Generator.drawTextureLegacy(
     "Chest",
-    {x: 140, y: 140, w: 139, h: 49},
-    {x: 0 + ox, y: 64 + oy, w: 64, h: 64},
+    {x: 140, y: 141, w: 139, h: 49},
+    {x: 376 + ox, y: 360 + oy, w: 76, h: 27},
     (),
   ) 
+  
+  // Left
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 0, y: 140, w: 139, h: 49},
+    {x: 300 + ox, y: 360 + oy, w: 76, h: 27},
+    (),
+  ) 
+
+  // Front
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 421, y: 140, w: 139, h: 49},
+    {x: 223 + ox, y: 360 + oy, w: 76, h: 27},
+    (),
+  ) 
+
+  // Top
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 281, y: 0, w: 139, h: 141},
+    {x: 223 + ox, y: 283 + oy, w: 77, h: 77},
+    (),
+  ) 
+
+  // That part similar to the roof of the mouth idk how to say it lol
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 140, y: 0, w: 139, h: 141},
+    {x: 224 + ox, y: 387 + oy, w: 77, h: 77},
+    (),
+  ) // Bottom Half of Chest
