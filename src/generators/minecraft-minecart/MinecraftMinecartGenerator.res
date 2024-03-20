@@ -5,10 +5,11 @@ let id = "minecraft-minecart"
 
 let name = "Minecraft Minecart"
 
-let history = ["30 Jun NinjolasNJM - first release"]
+let history = ["30 Jun NinjolasNJM - first release"
+"20 Mar 2024 minecraftpapercrafttemplates - Added thumbnail image"]
 
 let thumbnail: Generator.thumnbnailDef = {
-  url: Generator.requireImage("./thumbnail/thumbnail-256.jpeg"),
+  url: Generator.requireImage("./thumbnail/thumbnail.jpeg"),
 }
 
 let instructions = "
@@ -407,7 +408,7 @@ let generator: Generator.generatorDef = {
   id,
   name,
   history,
-  thumbnail: None,
+  thumbnail: thumbnail,
   video: None,
   instructions: Some(<Generator.Markdown> {instructions} </Generator.Markdown>),
   images,
