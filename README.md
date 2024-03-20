@@ -625,3 +625,5 @@ let color = switch colorOpt {
   }
 }
 ```
+Ninjalandia's Notes: This is a forked version of the generator, 
+this allows me (Ninjalandia) to make a website for the generators I make
