@@ -31,7 +31,7 @@ let mob: array<Generator.generatorDef> = [
   MinecraftPhantomGenerator.generator,
   MinecraftCatGenerator.generator,
   MinecraftVillagerGenerator.generator,
-  MinecraftZombieGenerator.generator,
+  MinecraftWitherGenerator.generator,
 
 let mobCharacter: array<Generator.generatorDef> = [
   MinecraftCreeperCharacterGenerator.generator,
