@@ -71,7 +71,7 @@ let script = () => {
     Generator.drawTextureLegacy(
     "Chest",
     {x: 140, y: 141, w: 139, h: 49},
-    {x: 376 + ox, y: 360 + oy, w: 76, h: 27},
+    {x: 375 + ox, y: 360 + oy, w: 76, h: 27},
     (),
   ) 
   
@@ -79,7 +79,7 @@ let script = () => {
     Generator.drawTextureLegacy(
     "Chest",
     {x: 0, y: 140, w: 139, h: 49},
-    {x: 300 + ox, y: 360 + oy, w: 76, h: 27},
+    {x: 299 + ox, y: 360 + oy, w: 76, h: 27},
     (),
   ) 
 
