@@ -16,6 +16,8 @@ let instructions = {
 ## Welcome to the Chest generator!
   
 ### Upload a texture of your own chest or select a chest already put for you!
+### Unfortunately, I couldn't make the folds transparent so I will let someone else do the job. :(
+
 `
   }
 
@@ -41,11 +43,11 @@ let script = () => {
   Generator.defineTextureInput("Skin",{standardWidth: 640, standardHeight: 640, choices: []})
 
 
-  Generator.defineTextureInput("Show Folds", true)
+  
   Generator.defineTextureInput("Show Labels", true)
 
 
-  let showFolds = Generator.getBooleanInputValue("Show Folds")
+
   let showLabels = Generator.getBooleanInputValue("Show Labels")
 
 
@@ -104,5 +106,60 @@ let script = () => {
     "Chest",
     {x: 140, y: 0, w: 139, h: 141},
     {x: 224 + ox, y: 387 + oy, w: 77, h: 77},
+     ~flip=#Vertical,
     (),
-  ) // Bottom Half of Chest
+  ) 
+
+// The Floor of the Mouth i was talking about 
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 283, y: 190, w: 139, h: 141},
+    {x: 224 + ox, y: 464 + oy, w: 77, h: 79},
+     ~flip=#Vertical,
+    (),
+  )    
+
+// Bottom right 
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 280, y: 330, w: 139, h: 100},
+    {x: 147 + ox, y: 542 + oy, w: 77, h: 55},
+     ~flip=#Vertical,
+    (),
+  ) 
+
+// Bottom Front 
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 421, y: 330, w: 139, h: 100},
+    {x: 224 + ox, y: 542 + oy, w: 78, h: 55},
+     ~flip=#Vertical,
+    (),
+  ) 
+
+// Bottom Left 
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 0, y: 330, w: 139, h: 100},
+    {x: 300 + ox, y: 542 + oy, w: 77, h: 55},
+     ~flip=#Vertical,
+    (),
+  ) 
+
+// Bottom Back
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 142, y: 330, w: 139, h: 100},
+    {x: 377 + ox, y: 542 + oy, w: 77, h: 55},
+     ~flip=#Vertical,
+    (),
+  ) 
+
+// Bottom
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 142, y: 192, w: 139, h: 139},
+    {x: 233 + ox, y: 597 + oy, w: 78, h: 78},
+     ~flip=#Vertical,
+    (),
+  ) 
