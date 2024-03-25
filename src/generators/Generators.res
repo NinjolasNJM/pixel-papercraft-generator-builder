@@ -17,6 +17,7 @@ let utility: array<Generator.generatorDef> = [
   MinecraftDioramaGenerator.generator,
   MinecraftArmorGenerator.generator,
   MinecraftCapeAndElytraGenerator.generator,
+  MinecraftChestGenerator.generator,
   MinecraftCharacterHeadsGenerator.generator,
   MinecraftMinecartGenerator.generator,
 ]
