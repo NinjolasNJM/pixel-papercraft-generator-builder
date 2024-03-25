@@ -52,14 +52,6 @@ let script = () => {
 
 
   Generator.drawImage("Background", (0, 0))
-
-  // Top Half of Chest
-    Generator.drawTextureLegacy(
-    "Chest",
-    {x: ?, y: ?, w: ?, h: ?},
-    {x: ? + ox, y: ? + oy, w: ?, h: ?},
-    (),
-  ) 
   
   // Right
     Generator.drawTextureLegacy(
@@ -161,5 +153,54 @@ let script = () => {
     {x: 142, y: 192, w: 139, h: 139},
     {x: 233 + ox, y: 597 + oy, w: 78, h: 78},
      ~flip=#Vertical,
+    (),
+  ) 
+
+// Tooth Top
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 10, y: 0, w: 20, h: 10},
+    {x: 413 + ox, y: 465 + oy, w: 11, h: 5},
+    (),
+  ) 
+
+// Tooth Bottom
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 30, y: 0, w: 20, h: 10},
+    {x: 413 + ox, y: 492 + oy, w: 11, h: 5},
+     ~flip=#Vertical,
+    (),
+  ) 
+
+// Tooth Front
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 10, y: 10, w: 20, h: 40},
+    {x: 413 + ox, y: 470 + oy, w: 11, h: 22},
+    (),
+  ) 
+
+// Tooth Right
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 0, y: 10, w: 10, h: 40},
+    {x: 408 + ox, y: 470 + oy, w: 5, h: 22},
+    (),
+  ) 
+
+// Tooth Left
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 30, y: 10, w: 10, h: 40},
+    {x: 424 + ox, y: 470 + oy, w: 5, h: 22},
+    (),
+  ) 
+
+// Tooth Back
+    Generator.drawTextureLegacy(
+    "Chest",
+    {x: 40, y: 10, w: 20, h: 40},
+    {x: 428 + ox, y: 470 + oy, w: 11, h: 22},
     (),
   ) 
