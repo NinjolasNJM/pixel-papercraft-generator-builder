@@ -23,15 +23,13 @@ let instructions = {
 
 let imageIds = [ 
   "Background",
-  "Folds",
-  "Labels"
 ]
 let toImageDef = (id): Generator.imageDef => {id: id, url: requireImage(id)}
 let images: array<Generator.imageDef> = imageIds->Js.Array2.map(toImageDef)
 
 let textures: array<Generator.textureDef> = [
   {
-    id: "Skin"
+    id: "Chest"
     url: requireTexture("Chest")
     standardWidth: 640
     standardHeight: 640
@@ -41,14 +39,6 @@ let textures: array<Generator.textureDef> = [
 let script = () => {
 
   Generator.defineTextureInput("Skin",{standardWidth: 640, standardHeight: 640, choices: []})
-
-
-  
-  Generator.defineTextureInput("Show Labels", true)
-
-
-
-  let showLabels = Generator.getBooleanInputValue("Show Labels")
 
 
   Generator.drawImage("Background", (0, 0))
@@ -204,3 +194,15 @@ let script = () => {
     {x: 428 + ox, y: 470 + oy, w: 11, h: 22},
     (),
   ) 
+
+let generator: Generator.generatorDef = {
+  id: id,
+  name: name,
+  history: history,
+  thumbnail: None,
+  video: None,
+  instructions: instructions,
+  images: images,
+  textures: textures,
+  script: script,
+}
