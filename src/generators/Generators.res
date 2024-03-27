@@ -19,6 +19,7 @@ let utility: array<Generator.generatorDef> = [
   MinecraftCapeAndElytraGenerator.generator,
   MinecraftCharacterHeadsGenerator.generator,
   MinecraftMinecartGenerator.generator,
+  MinecraftChestGenerator.generator,
 ]
 
 let mob: array<Generator.generatorDef> = [
