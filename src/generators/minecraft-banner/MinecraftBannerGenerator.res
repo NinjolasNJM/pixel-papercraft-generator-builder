@@ -18,6 +18,21 @@ let instructions = `
 In this generator, you may upload an image of a banner and it will convert it into a papercraft template.
 
 `
-let ImageIds = [
+let imageIds = [
+  "Background"
+]
+let toImageDef = (id): Generator.imageDef => {id: id, url: requireImage(id)}
+let images: array<Generator.imageDef> = imageIds->Js.Array2.map(toImageDef
+
+let textures: array<Generator.textureDef> = [
+  {
+    id: "Banner",
+    url: requireTexture("banner"),
+    standardWidth: 64,
+    standardHeight: 32,
+  },
+]
+
+
 
 
