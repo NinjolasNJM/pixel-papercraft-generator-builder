@@ -97,8 +97,8 @@ let textures: array<Generator.textureDef> = [
   {
     id: "CacaFeces",
     url: requireTexture("CacaFeces"),
-    standardWidth: 64,
-    standardHeight: 32,
+    standardWidth: 128,
+    standardHeight: 64
   },
 ]
 
@@ -121,6 +121,7 @@ let script = () => {
         "Founder's Cape",
         "Mojang Cape",
         "Elytra",
+        "CacaFeces",
       ],
     },
   )
