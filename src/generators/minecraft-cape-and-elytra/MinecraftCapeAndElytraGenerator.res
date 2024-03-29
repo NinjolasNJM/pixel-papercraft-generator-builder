@@ -86,9 +86,16 @@ let textures: array<Generator.textureDef> = [
     standardWidth: 64,
     standardHeight: 32,
   },
+  
   {
     id: "Elytra",
     url: requireTexture("Elytra"),
+    standardWidth: 64,
+    standardHeight: 32,
+  },
+  {
+    id: "CacaFeces",
+    url: requireTexture("CacaFeces"),
     standardWidth: 64,
     standardHeight: 32,
   },
