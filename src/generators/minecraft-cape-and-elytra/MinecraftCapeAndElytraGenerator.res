@@ -9,6 +9,7 @@ let history = [
   "16 Mar 2021 NinjolasNJM - Initially completed both cape and elytra generation.",
   "06 Jun 2021 NinjolasNJM - Converted to ReScript generator.",
   "02 Feb 2024 NinjolasNJM - added default textures and improved folds. ",
+  "29 March 2024 MinecraftPapercraftTemplates - shitted on the lgbtq community because he is ruthless. ",
 ]
 
 let thumbnail: Generator.thumnbnailDef = {
