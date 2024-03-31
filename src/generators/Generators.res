@@ -20,6 +20,7 @@ let utility: array<Generator.generatorDef> = [
   MinecraftChestGenerator.generator,
   MinecraftCharacterHeadsGenerator.generator,
   MinecraftMinecartGenerator.generator,
+  MinecraftMickeyEarsGenerator.generator,
 ]
 
 let mob: array<Generator.generatorDef> = [
