@@ -133,9 +133,6 @@ let script = () => {
 
         Generator.drawImage("Folds", (x - 26, y - 1))
       }
-      if actionFigure {
-        Generator.drawImage("Action Figure", (x + 64, y + 128))
-      }
     }
   }
 
