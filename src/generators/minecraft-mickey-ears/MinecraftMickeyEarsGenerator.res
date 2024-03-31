@@ -6,7 +6,7 @@ let id = "minecraft-mickey-ears"
 let name = "Minecraft Mickey Ears"
 
 let history = [
-  "Originally developed by ODF.",
+  "Originally developed by ArgentiCityZen.",
   "06 Feb 2015 lostminer - Add user variables.",
   "13 Feb 2015 lostminer - Update to use new version of generator.",
   "17 Jul 2021 M16 - Updated generator photo.",
@@ -132,8 +132,6 @@ let script = () => {
         //Generator.drawFoldLineCuboid((x, y), (64, 64, 64), ())
 
         Generator.drawImage("Folds", (x - 26, y - 1))
-      }
-      if actionFigure {
         Generator.drawImage("Action Figure", (x + 64, y + 128))
       }
     }
