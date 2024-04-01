@@ -17,7 +17,7 @@ var id = "minecraft-mickey-ears";
 var name = "Minecraft Mickey Ears";
 
 var history = [
-  "Originally developed by ODF.",
+  "Originally developed by ArgentiCityZen.",
   "06 Feb 2015 lostminer - Add user variables.",
   "13 Feb 2015 lostminer - Update to use new version of generator.",
   "17 Jul 2021 M16 - Updated generator photo.",
@@ -101,7 +101,7 @@ var textures = [
 ];
 
 function script(param) {
-  for(var i = 1; i <= 8; ++i){
+  for(var i = 1; i <= 1; ++i){
     Generator.defineTextureInput("Skin " + i.toString(), {
           standardWidth: 64,
           standardHeight: 64,
@@ -151,7 +151,7 @@ function script(param) {
         64,
         64,
         64
-      ], undefined, undefined, undefined);
+      ], undefined, undefined, undefined, undefined, undefined, undefined);
   if (showOverlay) {
     Minecraft.drawCuboid(textureId, steve.overlay.head, [
           x$1,
@@ -160,7 +160,7 @@ function script(param) {
           64,
           64,
           64
-        ], undefined, undefined, undefined);
+        ], undefined, undefined, undefined, undefined, undefined, undefined);
   }
   if (showFolds) {
     Generator.drawImage("Folds", [
