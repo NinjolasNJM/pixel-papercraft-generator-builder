@@ -101,7 +101,7 @@ var textures = [
 ];
 
 function script(param) {
-  for(var i = 1; i <= 8; ++i){
+  for(var i = 1; i <= 1; ++i){
     Generator.defineTextureInput("Skin " + i.toString(), {
           standardWidth: 64,
           standardHeight: 64,

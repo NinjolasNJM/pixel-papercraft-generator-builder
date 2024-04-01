@@ -82,7 +82,7 @@ let textures: array<Generator.textureDef> = [
 
 let script = () => {
   // Define user inputs
-  for i in 1 to 8 {
+  for i in 1 to 1 {
     Generator.defineTextureInput(
       "Skin " ++ Js.Int.toString(i),
       {
@@ -132,7 +132,6 @@ let script = () => {
         //Generator.drawFoldLineCuboid((x, y), (64, 64, 64), ())
 
         Generator.drawImage("Folds", (x - 26, y - 1))
-
         Generator.drawImage("Action Figure", (x + 64, y + 128))
       }
     }
