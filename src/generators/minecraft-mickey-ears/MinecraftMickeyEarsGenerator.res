@@ -82,7 +82,7 @@ let textures: array<Generator.textureDef> = [
 
 let script = () => {
   // Define user inputs
-  for i in 1 to 8 {
+  for i in 1 to 1 {
     Generator.defineTextureInput(
       "Skin " ++ Js.Int.toString(i),
       {
