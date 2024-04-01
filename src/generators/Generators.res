@@ -2,6 +2,7 @@
 
 let isDevEnvironment: bool = process["env"]["NODE_ENV"] == "development"
 
+// Characters
 let character: array<Generator.generatorDef> = [
   MinecraftCharacterGenerator.generator,
   MinecraftActionFigureGenerator.generator,
@@ -17,12 +18,12 @@ let utility: array<Generator.generatorDef> = [
   MinecraftDioramaGenerator.generator,
   MinecraftArmorGenerator.generator,
   MinecraftCapeAndElytraGenerator.generator,
-  MinecraftChestGenerator.generator,
   MinecraftCharacterHeadsGenerator.generator,
   MinecraftMinecartGenerator.generator,
   MinecraftMickeyEarsGenerator.generator,
 ]
 
+// Mobs
 let mob: array<Generator.generatorDef> = [
   MinecraftCreeperGenerator.generator,
   MinecraftEndermanGenerator.generator,
@@ -34,7 +35,8 @@ let mob: array<Generator.generatorDef> = [
   MinecraftCatGenerator.generator,
   MinecraftVillagerGenerator.generator,
   MinecraftWitherGenerator.generator,
-
+]
+// Mob Character
 let mobCharacter: array<Generator.generatorDef> = [
   MinecraftCreeperCharacterGenerator.generator,
   MinecraftCatCharacterGenerator.generator,
