@@ -17,7 +17,7 @@ var id = "minecraft-mickey-ears";
 var name = "Minecraft Mickey Ears";
 
 var history = [
-  "Originally developed by ArgentiCityZen.",
+  "Originally developed by ArgentiCityZen14.",
   "06 Feb 2015 lostminer - Add user variables.",
   "13 Feb 2015 lostminer - Update to use new version of generator.",
   "17 Jul 2021 M16 - Updated generator photo.",
@@ -97,6 +97,24 @@ var textures = [
     url: requireTexture("Blaze"),
     standardWidth: 64,
     standardHeight: 64
+  },
+  {
+    id: "R2-D2",
+    url: requireTexture("R2-D2"),
+    standardWidth: 64,
+    standardHeight: 64
+  },
+  {
+    id: "Mickey",
+    url: requireTexture("Mickey"),
+    standardWidth: 64,
+    standardHeight: 64
+  },
+  {
+    id: "EPCOT",
+    url: requireTexture("Epcot"),
+    standardWidth: 64,
+    standardHeight: 64
   }
 ];
 
@@ -113,7 +131,10 @@ function script(param) {
             "Skeleton",
             "Wither Skeleton",
             "Creeper",
-            "Blaze"
+            "Blaze",
+            "R2-D2",
+            "Mickey",
+            "EPCOT"
           ]
         });
   }
