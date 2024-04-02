@@ -625,5 +625,4 @@ let color = switch colorOpt {
   }
 }
 ```
-Ninjalandia's Notes: This is a forked version of the generator, 
-this allows me (Ninjalandia) to make a website for the generators I make
+Argenticityzenx's notes: if you want to do a generator and you want the generator has a Mickey Mouse Ears Generator, just fork my repo and upload your changes
