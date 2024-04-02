@@ -9,7 +9,7 @@ let history = [
   "Originally developed by minecraftpapercrafttemplates."
 ]
 
-let thumbnail: Generator.thummbnailDef = { 
+let thumbnail: Generator.thumnbnailDef = { 
   url: Generator.requireImage("./thumbnail/thumbnail-256.jpeg"),
 }
 
@@ -48,7 +48,7 @@ let script = () => {
   
   // Right
     let (ox, oy) = (74, 25)
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 281, y: 140, w: 139, h: 49},
     {x: 147 + ox, y: 360 + oy, w: 76, h: 27},
@@ -56,7 +56,7 @@ let script = () => {
   ) 
   
    // Back
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 140, y: 141, w: 139, h: 49},
     {x: 375 + ox, y: 360 + oy, w: 76, h: 27},
@@ -64,7 +64,7 @@ let script = () => {
   ) 
   
   // Left
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 0, y: 140, w: 139, h: 49},
     {x: 299 + ox, y: 360 + oy, w: 76, h: 27},
@@ -72,7 +72,7 @@ let script = () => {
   ) 
 
   // Front
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 421, y: 140, w: 139, h: 49},
     {x: 223 + ox, y: 360 + oy, w: 76, h: 27},
@@ -80,7 +80,7 @@ let script = () => {
   ) 
 
   // Top
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 281, y: 0, w: 139, h: 141},
     {x: 223 + ox, y: 283 + oy, w: 77, h: 77},
@@ -88,7 +88,7 @@ let script = () => {
   ) 
 
   // That part similar to the roof of the mouth idk how to say it lol
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 140, y: 0, w: 139, h: 141},
     {x: 224 + ox, y: 387 + oy, w: 77, h: 77},
@@ -97,7 +97,7 @@ let script = () => {
   ) 
 
 // The Floor of the Mouth i was talking about 
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 283, y: 190, w: 139, h: 141},
     {x: 224 + ox, y: 464 + oy, w: 77, h: 79},
@@ -106,7 +106,7 @@ let script = () => {
   )    
 
 // Bottom right 
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 280, y: 330, w: 139, h: 100},
     {x: 147 + ox, y: 542 + oy, w: 77, h: 55},
@@ -115,7 +115,7 @@ let script = () => {
   ) 
 
 // Bottom Front 
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 421, y: 330, w: 139, h: 100},
     {x: 224 + ox, y: 542 + oy, w: 78, h: 55},
@@ -124,7 +124,7 @@ let script = () => {
   ) 
 
 // Bottom Left 
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 0, y: 330, w: 139, h: 100},
     {x: 300 + ox, y: 542 + oy, w: 77, h: 55},
@@ -133,7 +133,7 @@ let script = () => {
   ) 
 
 // Bottom Back
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 142, y: 330, w: 139, h: 100},
     {x: 377 + ox, y: 542 + oy, w: 77, h: 55},
@@ -142,7 +142,7 @@ let script = () => {
   ) 
 
 // Bottom
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 142, y: 192, w: 139, h: 139},
     {x: 233 + ox, y: 597 + oy, w: 78, h: 78},
@@ -151,7 +151,7 @@ let script = () => {
   ) 
 
 // Tooth Top
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 10, y: 0, w: 20, h: 10},
     {x: 413 + ox, y: 465 + oy, w: 11, h: 5},
@@ -159,7 +159,7 @@ let script = () => {
   ) 
 
 // Tooth Bottom
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 30, y: 0, w: 20, h: 10},
     {x: 413 + ox, y: 492 + oy, w: 11, h: 5},
@@ -168,7 +168,7 @@ let script = () => {
   ) 
 
 // Tooth Front
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 10, y: 10, w: 20, h: 40},
     {x: 413 + ox, y: 470 + oy, w: 11, h: 22},
@@ -176,7 +176,7 @@ let script = () => {
   ) 
 
 // Tooth Right
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 0, y: 10, w: 10, h: 40},
     {x: 408 + ox, y: 470 + oy, w: 5, h: 22},
@@ -184,7 +184,7 @@ let script = () => {
   ) 
 
 // Tooth Left
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 30, y: 10, w: 10, h: 40},
     {x: 424 + ox, y: 470 + oy, w: 5, h: 22},
@@ -192,12 +192,13 @@ let script = () => {
   ) 
 
 // Tooth Back
-    Generator.drawTexture(
+    Generator.drawTextureLegacy(
     "Chest",
     {x: 40, y: 10, w: 20, h: 40},
     {x: 428 + ox, y: 470 + oy, w: 11, h: 22},
     (),
   ) 
+}
 
 let generator: Generator.generatorDef = {
   id: id,
@@ -205,9 +206,8 @@ let generator: Generator.generatorDef = {
   history: history,
   thumbnail: Some(thumbnail),
   video: None,
-  instructions: instructions,
+  instructions: None,
   images: images,
   textures: textures,
   script: script,
-
 }
