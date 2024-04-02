@@ -47,6 +47,7 @@ let script = () => {
   Generator.drawImage("Background", (0, 0))
   
   // Right
+    let (ox, oy) = (74, 25)
     Generator.drawTextureLegacy(
     "Chest",
     {x: 281, y: 140, w: 139, h: 49},
