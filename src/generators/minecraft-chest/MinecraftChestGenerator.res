@@ -37,6 +37,24 @@ let textures: array<Generator.textureDef> = [
     standardWidth: 640,
     standardHeight: 640
   },
+  {
+    id: "Ender Chest",
+    url: requireTexture("EnderChest"),
+    standardWidth: 640,
+    standardHeight: 640
+  },
+  {
+    id: "Trapped Chest",
+    url: requireTexture("TrappedChest"),
+    standardWidth: 640,
+    standardHeight: 640
+  },
+  {
+    id: "Christmas Chest",
+    url: requireTexture("ChristmasChest"),
+    standardWidth: 640,
+    standardHeight: 640
+  },
 ]
 
 let script = () => {
