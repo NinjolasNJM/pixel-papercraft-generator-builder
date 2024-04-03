@@ -59,7 +59,7 @@ let textures: array<Generator.textureDef> = [
 
 let script = () => {
 
-  Generator.defineTextureInput("Chest",{standardWidth: 640, standardHeight: 640, choices: [Chest, Ender Chest, Trapped Chest, Christmas Chest]})
+  Generator.defineTextureInput("Chest",{standardWidth: 640, standardHeight: 640, choices: []})
 
 
   Generator.drawImage("Background", (0, 0))
