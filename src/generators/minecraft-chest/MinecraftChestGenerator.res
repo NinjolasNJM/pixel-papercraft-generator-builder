@@ -3,7 +3,7 @@ let requireTexture = id => Generator.requireImage("./textures/" ++ id ++ ".png")
 
 let id = "minecraft-chest"
 
-let name = "Minecraft Chest"
+let name = "Minecraft Chest Generator"
 
 let history = [
   "Originally developed by minecraftpapercrafttemplates."
