@@ -57,9 +57,45 @@ let script = () => {
 Generator.drawTextureLegacy(
     "Skin",
     {x: 79, y: 80, w: 80, h: 80},
-    {x: 64 + ox, y: 64 + oy, w: 64, h: 64},
+    {x: 384 + ox, y: 139 + oy, w: 51, h: 50},
     (),
   )
+// Right side
+Generator.drawTextureLegacy(
+    "Skin",
+    {x: 0, y: 80, w: 80, h: 80},
+    {x: 332 + ox, y: 139 + oy, w: 52, h: 50},
+    (),
+  )
+// Left Side
+Generator.drawTextureLegacy(
+    "Skin",
+    {x: 159, y: 80, w: 80, h: 80},
+    {x: 434 + ox, y: 139 + oy, w: 51, h: 50},
+    (),
+  )
+// Back
+Generator.drawTextureLegacy(
+    "Skin",
+    {x: 240, y: 80, w: 80, h: 80},
+    {x: 485 + ox, y: 139 + oy, w: 51, h: 50},
+    (),
+  )
+// Top
+Generator.drawTextureLegacy(
+    "Skin",
+    {x: 79, y: 0, w: 80, h: 80},
+    {x: 384 + ox, y: 88 + oy, w: 51, h: 52},
+    (),
+  )
+// Bottom
+Generator.drawTextureLegacy(
+  "Skin",
+  (x: 159, y: 0, w: 80, h: 80),
+  (x: 435 + ox, y: 241 + oy, w: 51, h: 52),
+  ~flip=#Vertical,
+  (),
+)
 
  // Folds
   if showFolds {
