@@ -51,6 +51,16 @@ let script = () => {
   // Background
   Generator.drawImage("Background", (0, 0))
 
+// Head 
+
+// Face
+Generator.drawTextureLegacy(
+    "Skin",
+    {x: 79, y: 80, w: 80, h: 80},
+    {x: 64 + ox, y: 64 + oy, w: 64, h: 64},
+    (),
+  )
+
  // Folds
   if showFolds {
     Generator.drawImage("Folds", (0, 0))
