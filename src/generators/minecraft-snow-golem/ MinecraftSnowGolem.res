@@ -97,6 +97,17 @@ Generator.drawTextureLegacy(
   (),
 )
 
+// Body
+
+// 
+Generator.drawTextureLegacy(
+  "Skin",
+  (x: 159, y: 0, w: 80, h: 80),
+  (x: 435 + ox, y: 241 + oy, w: 51, h: 52),
+  ~rotate=90.0,
+  (),
+)
+ 
  // Folds
   if showFolds {
     Generator.drawImage("Folds", (0, 0))
