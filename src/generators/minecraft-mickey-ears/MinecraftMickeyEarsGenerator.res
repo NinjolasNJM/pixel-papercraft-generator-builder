@@ -6,7 +6,7 @@ let id = "minecraft-mickey-ears"
 let name = "Minecraft Mickey Ears"
 
 let history = [
-  "Originally developed by ArgentiCityZen.",
+  "Originally developed by ArgentiCityZen14.",
   "06 Feb 2015 lostminer - Add user variables.",
   "13 Feb 2015 lostminer - Update to use new version of generator.",
   "17 Jul 2021 M16 - Updated generator photo.",
@@ -26,7 +26,13 @@ let images: array<Generator.imageDef> = [
 let textures: array<Generator.textureDef> = [
   {
     id: "Skin 1",
-    url: requireTexture("Steve"),
+    url: requireTexture("Original"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
+  {
+    id: "Original",
+    url: requireTexture("Original"),
     standardWidth: 64,
     standardHeight: 64,
   },
@@ -78,6 +84,24 @@ let textures: array<Generator.textureDef> = [
     standardWidth: 64,
     standardHeight: 64,
   },
+  {
+    id: "R2-D2",
+    url: requireTexture("R2-D2"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
+  {
+    id: "Mickey",
+    url: requireTexture("Mickey"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
+  {
+    id: "EPCOT",
+    url: requireTexture("Epcot"),
+    standardWidth: 64,
+    standardHeight: 64,
+  },
 ]
 
 let script = () => {
@@ -89,6 +113,7 @@ let script = () => {
         standardWidth: 64,
         standardHeight: 64,
         choices: [
+          "Original",
           "Steve",
           "Alex",
           "Zombie",
@@ -97,6 +122,9 @@ let script = () => {
           "Wither Skeleton",
           "Creeper",
           "Blaze",
+          "R2-D2",
+          "Mickey",
+          "EPCOT",
         ],
       },
     )
