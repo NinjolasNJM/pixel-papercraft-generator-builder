@@ -46,7 +46,13 @@ var images = [
 var textures = [
   {
     id: "Skin 1",
-    url: requireTexture("Steve"),
+    url: requireTexture("Original"),
+    standardWidth: 64,
+    standardHeight: 64
+  },
+  {
+    id: "Original",
+    url: requireTexture("Original"),
     standardWidth: 64,
     standardHeight: 64
   },
@@ -124,6 +130,7 @@ function script(param) {
           standardWidth: 64,
           standardHeight: 64,
           choices: [
+            "Original",
             "Steve",
             "Alex",
             "Zombie",
