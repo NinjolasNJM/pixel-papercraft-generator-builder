@@ -1,4 +1,4 @@
-raw(`
+%%raw(`
 require('tailwindcss/tailwind.css');
 `)
 
