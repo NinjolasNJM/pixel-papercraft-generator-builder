@@ -13,6 +13,14 @@ let history = [
   "12 Jun 2022 NinjolasNJM - Updated to use Minecraft module, and added Action Figure option",
 ]
 
+let instructions = `
+## How to use the Minecraft Mickey Ears Generator?
+
+1. Select your Minecraft skin file.
+2. Choose the your Minecraft skin file model type.
+3. Download and print your Mickey Ears papercraft.
+`
+
 let thumbnail: Generator.thumnbnailDef = {
   url: Generator.requireImage("./thumbnail/v2-thumbnail-256.jpeg"),
 }
