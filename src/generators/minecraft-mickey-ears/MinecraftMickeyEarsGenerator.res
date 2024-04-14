@@ -186,7 +186,7 @@ let generator: Generator.generatorDef = {
   history: history,
   thumbnail: Some(thumbnail),
   video: None,
-  instructions: None,
+  instructions: Some(<Generator.Markdown> {instructions} </Generator.Markdown>),
   images: images,
   textures: textures,
   script: script,
