@@ -47,7 +47,31 @@ let script = () => {
 // Top
   Generator.drawTextureLegacy(
     "Skin",
-    {x: 8, y: 8, w: 8, h: 8},
-    {x: 64 + ox, y: 64 + oy, w: 64, h: 64},
+    {x: 160, y: 0, w: 160, h: 160},
+    {x: 209 + ox, y: 232 + oy, w: 88, h: 90},
+    (),
+  )
+
+// Left
+  Generator.drawTextureLegacy(
+    "Skin",
+    {x: 321, y: 160, w: 160, h: 120},
+    {x: 297 + ox, y: 322 + oy, w: 89, h: 65},
+    (),
+  )
+
+// Front
+  Generator.drawTextureLegacy(
+    "Skin",
+    {x: 160, y: 160, w: 160, h: 120},
+    {x: 209 + ox, y: 322 + oy, w: 88, h: 65},
+    (),
+  )
+
+// Right
+  Generator.drawTextureLegacy(
+    "Skin",
+    {x: 0, y: 160, w: 160, h: 120},
+    {x: 121 + ox, y: 322 + oy, w: 88, h: 65},
     (),
   )
