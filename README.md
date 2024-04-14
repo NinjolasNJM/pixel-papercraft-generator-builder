@@ -35,8 +35,8 @@ Clone this repository and install the dependencies:
 
 ```sh
 cd <parent_folder_for_the_generator_builder>
-git clone https://github.com/pixelpapercraft/pixel-papercraft-generator-builder generator-builder
-cd generator-builder
+git clone https://github.com/ArgentiCityZenx/ArgentiCityZenx.github.io.git
+cd argenticityzenx.github.io
 npm install
 ```
 
@@ -625,3 +625,4 @@ let color = switch colorOpt {
   }
 }
 ```
+Argenticityzenx's notes: if you want to do a generator and you want the generator has a Mickey Mouse Ears Generator, just fork my repo and upload your changes

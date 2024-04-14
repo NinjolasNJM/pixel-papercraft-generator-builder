@@ -196,7 +196,7 @@ If you need help, ask in the #generator-help channel on Discord.
 
 ## Images vs Textures
 
-**Images** are just simple images that can be drawn onto the pages. You cannot draw parts of images, you can only draw the whole image. This makes them very fast to draw. You will typically use images for things like backgrounds and folds.
+**Images** are just images that can be drawn onto the pages. You cannot draw parts of images, you can only draw the whole image. This makes them very fast to draw. You will typically use images for things like backgrounds and folds or maybe if your design is a mob, it will likely have an action figure switch to toggle action figure or not.
 
 **Textures** are used when you want to draw parts of an image onto the page and those parts may be scaled, flipped or rotated, etc. Textures are slow to draw because of the image processing needed.
 
@@ -272,7 +272,7 @@ Generator.defineTextureInput(
 
 ### Defining Inputs for Minecraft Skins
 
-For when a Minecraft player skin is needed, use the `defineSkinInput` function. This will allow for searching for skins via Minecraft Java username, and automatically converts skins of the old skin type.
+For when a Minecraft player skin is needed, use the `defineSkinInput` function. This will allow for searching for skins via Minecraft Java username, and automatically converts skins of the old skin type. note that in some times, the Minecraft Input may not work because you either misspelled your name or your name doesn't exist.
 
 You must also specify some options:
 
@@ -334,7 +334,7 @@ In ReScript we will write these coordinates as:
 (8, 8, 8, 8)
 ```
 
-Next, we need to identify the rectange on the page.
+Next, we need to identify the rectangle on the page.
 
 ![Page with part of the image highlighted](./static/draw-texture-page.png)
 
