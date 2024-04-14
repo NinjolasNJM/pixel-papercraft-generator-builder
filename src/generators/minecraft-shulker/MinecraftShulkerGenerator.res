@@ -43,3 +43,11 @@ let script = () => {
   // Background
   Generator.drawImage("Background", (0, 0))
 
+// Top Half
+// Top
+  Generator.drawTextureLegacy(
+    "Skin",
+    {x: 8, y: 8, w: 8, h: 8},
+    {x: 64 + ox, y: 64 + oy, w: 64, h: 64},
+    (),
+  )
