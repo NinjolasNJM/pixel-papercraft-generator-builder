@@ -4,7 +4,7 @@
 
 ### First time setup
 
-Install Node and Git.
+Install Node, Git, and VS Code.
 
 Node is best installed using [Node Version Manager](https://github.com/nvm-sh/nvm).
 
@@ -31,7 +31,7 @@ npm i -g npm@latest
 
 Install Git [from the official site](https://git-scm.com/downloads).
 
-Clone this repository and install the dependencies:
+Clone the original repository from this fork and install the dependencies:
 
 ```sh
 cd <parent_folder_for_the_generator_builder>
@@ -42,11 +42,11 @@ npm install
 
 ### Set up ReScript and Visual Studio Code
 
-Generators are developed using the [ReScript](https://rescript-lang.org/) programming language.
+Generators are developed usinga programming language called [ReScript](https://rescript-lang.org/).
 
-ReScript development is best done using [Visual Studio Code](https://code.visualstudio.com/).
+ReScript development isbest done using [Visual Studio Code](https://code.visualstudio.com/).
 
-After installing VSCode, then install the official ReScript extension `rescript-vscode` from the VSCode Extensions panel.
+After installing VS Code, install the official ReScript extension `rescript-vscode` from the VS Code Extensions panel.
 
 ### Development
 
@@ -67,6 +67,11 @@ In another terminal, start the web server:
 ```
 npm run dev
 ```
+Alternatively, you can use:
+
+```
+npm start
+```
 
 Then open your browser:
 
@@ -76,7 +81,7 @@ http://localhost:3000
 
 ## Example Generator
 
-This is a quick example of what a simple generator script might look like.
+This is a simple and fast example of what a simple generator script might look like.
 
 This will be explained further in the sections below.
 
@@ -139,6 +144,7 @@ You can use any directory structure you like for each generator, but a recommend
 /example
   /images
   /textures
+  /thumbnail
   /Example.res
 ```
 
@@ -167,7 +173,7 @@ These properties are:
 | images       | Array of image URLs                              |
 | textures     | Array of texture image URLs                      |
 | script       | Generator script                                 |
-| history      | Array of strings, used as the history of updates |
+| history      | History of updates                               |
 | thumbnail    | Thumbnail image                                  |
 | video        | Video (optional)                                 |
 | instructions | Instructions for the generator                   |
@@ -190,13 +196,13 @@ To contribute to the project, you will need to do a few steps:
 
 [Read more about proposing changes on Github](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests).
 
-If you need help, ask in the #generator-help channel on Discord.
+If you need help, ask in the #generator-help channel on our Discord server.
 
 **Tip:** It's best to keep your branches and pull requests small. For example, create a separate branch and pull request for each generator. This helps to get the changes merged into the main project more quickly.
 
 ## Images vs Textures
 
-**Images** are just simple images that can be drawn onto the pages. You cannot draw parts of images, you can only draw the whole image. This makes them very fast to draw. You will typically use images for things like backgrounds and folds.
+**Images** are just simple images that can be drawn onto the pages. You cannot draw parts of images, you can only draw the whole image. This makes them very fast to draw. You will typically use images for things like backgrounds, folds, and labels.
 
 **Textures** are used when you want to draw parts of an image onto the page and those parts may be scaled, flipped or rotated, etc. Textures are slow to draw because of the image processing needed.
 
@@ -257,7 +263,7 @@ Use the `defineTextureInput` function.
 You must also specify some options:
 
 - `standardWidth` and `standardHeight` - the default width and height of the texture. These are required so that higher resolution textures will work.
-- `choices` - an array of texture names that may be selected instead of selecting a texture file. Specify an empty array `[]` if none required.
+- `choices` - an array of texture names that may be selected instead of uploading a texture file. Specify an empty array `[]` if none required.
 
 ```res
 Generator.defineTextureInput(
@@ -378,7 +384,7 @@ Generator.drawTexture(
 
 ### Pixelating textures
 
-When drawing textures and the destination shape is different to the source shape it can cause the texture to sometimes appear squashed, which makes the texture look messy. In these cases you can apply a `pixelate` option to keep the result looking pixelated.
+When drawing textures and the destination shape is different to the source shape it can cause the texture to sometimes appear squashed, which makes the texture look messy. In these cases you can apply a `pixelate` option to keep the result looking pixelated, as seen on the Minecraft Mini Character generator.
 
 ```res
 Generator.drawTexture(
@@ -394,7 +400,7 @@ Generator.drawTexture(
 
 When using `Generator.drawTexture()` you can blend textures with a color using the `~blend` argument.
 
-This is useful when adding a tint to certain blocks in Minecraft corresponding to a biome.
+This is useful when adding a tint to certain blocks in Minecraft corresponding to a biome, like a forest, taiga, or desert.
 
 The `~blend` argument can be either:
 
@@ -414,7 +420,7 @@ Generator.drawTexture(
 
 ### Using multiple pages
 
-By default the generator gives you one blank page to work with, however some designs may require more than one page.
+By default the generator gives you one blank page to work with, however some designs may require more than one page, like the Minecraft Mutant Character generator.
 
 To specify additional pages you can use the `Generator.usePage()` function. You just have to choose a name for each page, which can be any name you like.
 
@@ -430,7 +436,7 @@ Generator.usePage("Legs");
 // Draw images and textures here
 ```
 
-If each page doesn't have a specific purpose, just call them "Page 1", "Page 2", etc.
+If each page doesn't have a specific purpose, just call them "Page 1", "Page 2", and so on.
 
 ```res
 // Choose the first page
@@ -548,7 +554,7 @@ Generator.defineRegionInput((0, 0, 100, 100), () => {
 
 ### Providing instructions or comments
 
-You can provide some text instructions and comments with your inputs using `Generator.defineText()`.
+You can provide some text instructions and/or comments with your inputs using `Generator.defineText()`.
 
 ```res
 Generator.defineText("Click body parts to change the texture.")
