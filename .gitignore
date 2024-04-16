@@ -4,5 +4,6 @@
 /.merlin
 sdhouf
 /.bsb.lock
+# /dist
 /src/tools/minecraft-block/block-textures-original
 *.bs.js
