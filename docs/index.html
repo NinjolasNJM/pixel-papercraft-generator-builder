@@ -1,1 +1,95 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Ninjalandian Generators</title><link rel="stylesheet" href="static/fonts.css"><script defer="defer" src="main.bundle.js"></script></head><body><div id="root"></div><p>Note that this is in development. Expect a lot of errors and crashes.</p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninjalandian Generators</title>
+    <link rel="stylesheet" href="static/fonts.css">
+    <script defer="defer" src="main.bundle.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <p>Note that this is in development. Expect a lot of errors and crashes.</p>
+    <script>
+        let requireImage = id => Generator.requireImage("./images/" ++ id ++ ".png");
+        let requireTexture = id => Generator.requireImage("./textures/" ++ id ++ ".png");
+
+        let id = "minecraft-chest";
+
+        let name = "Minecraft Chest Generator";
+
+        let history = [
+            "Originally developed by minecraftpapercrafttemplates."
+        ];
+
+        let thumbnail = {
+            url: Generator.requireImage("./thumbnail/thumbnail-256.jpeg"),
+        };
+
+        let instructions = {
+            let chestTexture = requireTexture("Chest");
+            `
+            ## Welcome to the Chest generator!
+            ### This is still in Beta Development
+            ### Upload a texture of your own chest or select a chest already put for you!
+            ### Unfortunately, I couldn't make the folds transparent so I will let someone else do the job. :(
+            `
+        };
+
+        let imageIds = [
+            "Background",
+        ];
+        let toImageDef = (id) => ({id: id, url: requireImage(id)});
+        let images = imageIds.map(toImageDef);
+
+        let textures = [
+            {
+                id: "Chest",
+                url: requireTexture("Chest"),
+                standardWidth: 640,
+                standardHeight: 640
+            },
+            {
+                id: "Ender Chest",
+                url: requireTexture("EnderChest"),
+                standardWidth: 640,
+                standardHeight: 640
+            },
+            {
+                id: "Trapped Chest",
+                url: requireTexture("TrappedChest"),
+                standardWidth: 640,
+                standardHeight: 640
+            },
+            {
+                id: "Christmas Chest",
+                url: requireTexture("ChristmasChest"),
+                standardWidth: 640,
+                standardHeight: 640
+            },
+        ];
+
+        let script = () => {
+            Generator.defineTextureInput("Chest", {standardWidth: 640, standardHeight: 640, choices: []});
+
+            // Draw images here...
+        };
+
+        let generator = {
+            id: id,
+            name: name,
+            history: history,
+            thumbnail: Some(thumbnail),
+            video: None,
+            instructions: None,
+            images: images,
+            textures: textures,
+            script: script,
+        };
+
+        // Run the script
+        script();
+    </script>
+</body>
+</html>
