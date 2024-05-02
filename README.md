@@ -78,6 +78,17 @@ Then open your browser:
 ```
 http://localhost:3000
 ```
+## Alternative way using codespaces
+
+Start by making a fork of the original repo of this fork. Then, in your fork, make a branch named pages. Afterwards, run all terminal commands listed above in their right steps and open port 3000 on the "Ports" section.
+
+## Troubleshooting
+
+Normally, you might get errors. These are some ways to fix them.
+
+"Cannot continue due to errors". This error might appear on the termminal but it means that your generator code is not formatted properly. Ask @ArgentyCityzen on Discord or ask @NinjolasNJM for help.
+
+localhost is blank. Press F12 or look at the terminal in the codespace for errors. Odds are the files index.js or index.bs don't exist, which means you'll have to make them.
 
 ## Example Generator
 
