@@ -9,7 +9,7 @@ let history = [
   "Originally developed by minecraftpapercrafttemplates."
 ];
 
-let thumbnail: Generator.thumbnailDef = { 
+let thumbnail: Generator.thumnbnailDef = { 
   url: Generator.requireImage("./thumbnail/thumbnail-256.jpeg"),
 };
 
