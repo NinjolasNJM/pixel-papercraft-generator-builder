@@ -407,7 +407,7 @@ let generator: Generator.generatorDef = {
   id,
   name,
   history,
-  thumbnail: None,
+  thumbnail: Some(thumbnail),
   video: None,
   instructions: Some(<Generator.Markdown> {instructions} </Generator.Markdown>),
   images,
